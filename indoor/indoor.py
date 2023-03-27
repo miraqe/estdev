@@ -1,2 +1,2 @@
-
-python indoor.py
+HELLO, WORLD
+THIS IS CS50
