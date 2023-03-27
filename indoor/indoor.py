@@ -1,5 +1,3 @@
-'HELLO';
-'WORLD';
-'THIS IS CS50';
-check50
+HELLO, WORLD
+
 
