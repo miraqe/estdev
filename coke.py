@@ -21,9 +21,7 @@ while total < PRICE:
         due = PRICE - total
         if due > 0:
             print(f"Amount Due: {due}")
-    else:
-        # Ignore invalid coins
-        print("Invalid coin. Please insert a valid denomination.")
+   
 
 # Calculate the change owed to the user
 change = total - PRICE
