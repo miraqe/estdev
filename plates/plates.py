@@ -21,3 +21,13 @@ def is_valid(s):
 
     # All checks passed, so string is valid
     return True
+
+def main():
+    plate = input("Plate: ")
+    if is_valid(plate):
+        print("Valid")
+    else:
+        print("Invalid")
+
+
+main()
