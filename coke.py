@@ -25,7 +25,7 @@ while remaining > 0:
             remaining -= coin
         else:
             # Inform the user that the coin exceeds the remaining amount owed
-            print(f"Change Owed: {remaining}")
+            print(f"Change Owed: {remaining - total}")
     else:
         # Ignore invalid input
         continue
