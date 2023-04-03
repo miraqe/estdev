@@ -20,6 +20,9 @@ while total < PRICE:
     if coin in DENOMINATIONS and total + coin <= PRICE:
         # Add the coin to the total
         total += coin
+    else:
+        # Inform the user that the coin is invalid or exceeds the price of a bottle of Coke
+        print("Invalid coin. Please insert a valid coin.")
 
 # Calculate the change owed to the user
 change = total - PRICE
@@ -29,3 +32,4 @@ if change > 0:
     print(f"Change Owed: {change}")
 else:
     print("Change Owed: 0")
+
