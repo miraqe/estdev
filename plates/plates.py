@@ -3,6 +3,10 @@ def is_vanity_plate(s):
     if len(s) < 2 or len(s) > 6:
         return False
 
+    # Check that the string contains only letters
+    if s.isalpha():
+        return True
+
     # Check that first two characters are letters
     if not s[0].isalpha() or not s[1].isalpha():
         return False
