@@ -15,12 +15,17 @@ def is_valid(s):
     if not s[-1].isalpha():
         return False
 
+    # Check that first character is not 0 if the second character is a digit
+    if s[1].isdigit() and s[0] == '0':
+        return False
+
     # Check that the first character of the number sequence is not '0'
-    if s[2:].isdigit() and s[2] == '0':
+    if any(c.isdigit() for c in s) and s[s.index(max(filter(str.isdigit, s)))].isdigit() and s[s.index(max(filter(str.isdigit, s)))-1] == '0':
         return False
 
     # All checks passed, so string is valid
     return True
+
 
 def main():
     plate = input("Plate: ")
