@@ -1,30 +1,29 @@
-def is_valid(s):
-    # Check that the plate is between 2 and 6 characters long
+def is_vanity_plate(s):
+    # Check length
     if len(s) < 2 or len(s) > 6:
         return False
 
-    # Check that the plate contains only letters and numbers
-    if not s.isalnum():
-        return False
-
-    # Check that the first two characters are letters
+    # Check that first two characters are letters
     if not s[:2].isalpha():
         return False
 
-    # Check that the last characters are digits and don't start with 0
-    if not s[-1].isdigit() or s[-1] == '0':
+    # Check that last characters are digits
+    if not s[-4:].isdigit():
         return False
 
-    # Check that there are no digits in the middle of the plate
-    if any(char.isdigit() for char in s[2:-1]):
+    # Check that first character of number sequence is not '0'
+    index = 2
+    while index < len(s) and s[index].isalpha():
+        index += 1
+    if index < len(s) and s[index] == '0':
         return False
 
-    # All checks passed, the plate is valid
     return True
+
 
 def main():
     plate = input("Plate: ")
-    if is_valid(plate):
+    if is_vanity_plate(plate):
         print("Valid")
     else:
         print("Invalid")
