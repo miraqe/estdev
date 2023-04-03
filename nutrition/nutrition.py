@@ -1,5 +1,5 @@
 fruits = {
-    "Apple": 130,
+    "apple": 130,
     "Avocado": 50,
     "Blackberries": 30,
     "Blueberries": 40,
@@ -7,7 +7,7 @@ fruits = {
     "Grapefruit": 90,
     "Grapes": 60,
     "Honeydew Melon": 50,
-    "Kiwifruit": 90,
+    "kiwifruit": 90,
     "Lemon": 20,
     "Lime": 20,
     "Mango": 100,
