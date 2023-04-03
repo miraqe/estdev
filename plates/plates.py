@@ -1,29 +1,23 @@
 def is_vanity_plate(s):
-    # Check that the string has at least 2 characters and at most 6 characters
-    if len(s) < 2 or len(s) > 6:
+    if not s.isalnum():
         return False
 
-    # Check that first two characters are letters
-    if not s[0].isalpha() or not s[1].isalpha():
+    if len(s) < 3 or len(s) > 6:
         return False
 
-    # Check that there are no letters after the numbers
-    if s[-1].isalpha():
+    if not s[:2].isalpha():
         return False
-    for i in range(len(s) - 2):
-        if s[i].isdigit() and s[i+1].isdigit() and s[i+2].isalpha():
-            return False
 
-    # Check that the first character of the number sequence is not '0'
+    num_count = 0
     for i in range(2, len(s)):
         if s[i].isdigit():
-            if s[i] == '0' and i != len(s)-1:
+            num_count += 1
+            if num_count > 4:
                 return False
-            else:
-                break
-
-    # If all checks pass, the vanity plate is valid
+        elif not s[i].isalpha():
+            return False
     return True
+
 
 
 def main():
