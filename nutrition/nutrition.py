@@ -6,7 +6,6 @@ fruit_calories = {
     "Blackberries": 30,
     "Blueberries": 40,
     "Cantaloupe": 50,
-    "Sweet Cherries": 100,
     "Grapefruit": 90,
     "Grapes": 60,
     "Honeydew Melon": 50,
@@ -23,6 +22,7 @@ fruit_calories = {
     "Plum": 70,
     "Raspberries": 30,
     "Strawberries": 50,
+    "Sweet Cherries": 100,
     "Watermelon": 50,
 }
 
