@@ -4,22 +4,28 @@ PRICE = 50
 # Define the valid denominations
 DENOMINATIONS = [25, 10, 5]
 
-# Initialize the total amount inserted by the user
+# Initialize the total amount inserted by the user and the remaining amount owed
 total = 0
+remaining = PRICE
 
 # Loop until the user has inserted enough money
-while total < PRICE:
-    # Inform the user of the amount due
-    due = PRICE - total
-    print(f"Amount Due: {due}")
+while remaining > 0:
+    # Inform the user of the remaining amount due
+    print(f"Amount Due: {remaining}")
 
     # Prompt the user to insert a coin
     coin = int(input("Insert coin: "))
 
-    # Check if the coin is a valid denomination and does not exceed the price of a bottle of Coke
-    if coin in DENOMINATIONS and total + coin <= PRICE:
-        # Add the coin to the total
-        total += coin
+    # Check if the coin is a valid denomination
+    if coin in DENOMINATIONS:
+        # Check if the coin does not exceed the remaining amount owed
+        if coin <= remaining:
+            # Add the coin to the total and subtract from the remaining amount owed
+            total += coin
+            remaining -= coin
+        else:
+            # Inform the user that the coin exceeds the remaining amount owed
+            print(f"Coin exceeds remaining amount owed: {remaining}")
     else:
         # Ignore invalid input
         continue
