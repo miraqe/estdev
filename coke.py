@@ -12,8 +12,8 @@ while total < PRICE:
     # Prompt the user to insert a coin
     coin = int(input("Insert a coin (25, 10, or 5): "))
 
-    # Check if the coin is a valid denomination
-    if coin in DENOMINATIONS:
+    # Check if the coin is a valid denomination and does not exceed the price of a bottle of Coke
+    if coin in DENOMINATIONS and total + coin <= PRICE:
         # Add the coin to the total
         total += coin
 
@@ -21,7 +21,7 @@ while total < PRICE:
         due = PRICE - total
         if due > 0:
             print(f"Amount Due: {due}")
-   
+
 
 # Calculate the change owed to the user
 change = total - PRICE
