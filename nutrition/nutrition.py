@@ -1,34 +1,34 @@
-# Create a dictionary to store the fruits and their calorie information
-fruits = {
+import sys
+
+fruit_calories = {
     "Apple": 130,
     "Avocado": 50,
-    "Blackberries": 60,
-    "Blueberries": 80,
+    "Blackberries": 30,
+    "Blueberries": 40,
     "Cantaloupe": 50,
     "Cherries": 90,
-    "Grapefruit": 60,
+    "Grapefruit": 90,
     "Grapes": 60,
     "Honeydew Melon": 50,
     "Kiwi": 90,
-    "Mango": 135,
-    "Nectarine": 60,
+    "Lemon": 20,
+    "Lime": 20,
+    "Mango": 100,
+    "Nectarine": 70,
     "Orange": 80,
     "Papaya": 60,
     "Peach": 60,
     "Pear": 100,
     "Pineapple": 80,
-    "Plums": 70,
-    "Raspberries": 60,
-    "Strawberries": 50
+    "Plum": 70,
+    "Raspberries": 30,
+    "Strawberries": 50,
+    "Watermelon": 50,
 }
 
-# Get the user input and convert it to lowercase
-fruit = input("Enter a fruit: ").lower().replace(" ", "")
+fruit = input("Enter a fruit: ")
 
-# Check if the user input matches a fruit in the dictionary
-if fruit in fruits:
-    # If the fruit is in the dictionary, print its calorie information
-    print("Calories:", fruits[fruit])
+if fruit.capitalize() in fruit_calories:
+    print("Calories:", fruit_calories[fruit.capitalize()])
 else:
-    # If the fruit is not in the dictionary, print nothing
-    pass
+    sys.exit()
