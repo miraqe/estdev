@@ -22,11 +22,11 @@ fruit_calories = {
     "Plum": 70,
     "Raspberries": 30,
     "Strawberries": 50,
-    "Sweet Cherry": 100,
+    "Sweet Cherries": 100,
     "Watermelon": 50,
 }
 
-fruit = input("Enter a fruit: ").lower().replace(" ", "")
+fruit = input("Enter a fruit: ").lower()
 
 if fruit.capitalize() in fruit_calories:
     print("Calories:", fruit_calories[fruit.capitalize()])
