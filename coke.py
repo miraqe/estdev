@@ -22,10 +22,10 @@ while total < PRICE:
         total += coin
 
 # Calculate the change owed to the user
-change = PRICE - total
+change = total - PRICE
 
 # Output the change owed to the user
 if change > 0:
     print(f"Change Owed: {change}")
 else:
-    print(f"Change Owed: {change}")
+    print("Change Owed: 0")
