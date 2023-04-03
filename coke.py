@@ -29,6 +29,6 @@ change = total - PRICE
 
 # Output the change owed to the user
 if change > 0:
-    print(f"Change Owed: {change}")
+    print(f"Change Owed: {total - PRICE}")
 else:
     print("Change Owed: 0")
