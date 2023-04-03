@@ -10,4 +10,4 @@ def get_media_type(file_name):
 # Prompt the user for a file name and print the corresponding media type
 file_name = input('Enter a file name: ')
 media_type = get_media_type(file_name)
-print(f'The media type for {file_name} is {media_type}.')
+print(media_type)
