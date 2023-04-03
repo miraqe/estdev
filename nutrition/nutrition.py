@@ -22,7 +22,7 @@ fruit_calories = {
     "Plum": 70,
     "Raspberries": 30,
     "Strawberries": 50,
-    "Sweet Cherries": 100,
+    "sweet cherries": 100,
     "Watermelon": 50,
 }
 
