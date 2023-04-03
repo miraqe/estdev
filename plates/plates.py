@@ -15,8 +15,12 @@ def is_valid(s):
     if not s[-1].isalpha():
         return False
 
-    # Check that first character is not 0
-    if s[2:].isdigit() and s[2] == '0':
+    # Check that first character is not 0 if the string starts with a digit
+    if s[2].isdigit() and s[0] == '0':
+        return True
+
+    # Check that digits only appear at the end of the string
+    if not s[2:-1].isalpha():
         return False
 
     # All checks passed, so string is valid
