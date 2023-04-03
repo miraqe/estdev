@@ -27,8 +27,19 @@ while total < PRICE:
 # Calculate the change owed to the user
 change = total - PRICE
 
+# Initialize a list to store the coins to be returned as change
+coins_to_return = []
+
+# Loop through the denominations and calculate the change
+for denomination in DENOMINATIONS:
+    while change >= denomination:
+        coins_to_return.append(denomination)
+        change -= denomination
+
 # Output the change owed to the user
-if change > 0:
-    print(f"Change Owed: {change}")
+if coins_to_return:
+    print("Change Owed: ")
+    for coin in coins_to_return:
+        print(coin)
 else:
-    print(f"Amount Due: {abs(change)}")
+    print("Change Owed: 0")
