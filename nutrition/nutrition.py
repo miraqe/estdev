@@ -26,7 +26,7 @@ fruit_calories = {
     "Watermelon": 50,
 }
 
-fruit = input("Enter a fruit: ")
+fruit = input("Enter a fruit: ").lower().replace(" ", "")
 
 if fruit.capitalize() in fruit_calories:
     print("Calories:", fruit_calories[fruit.capitalize()])
