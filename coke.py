@@ -22,7 +22,7 @@ while total < PRICE:
         total += coin
     else:
         # Inform the user that the coin is invalid or exceeds the price of a bottle of Coke
-        print("Invalid coin. Please insert a valid coin.")
+        continue
 
 # Calculate the change owed to the user
 change = total - PRICE
