@@ -22,7 +22,7 @@ while total < PRICE:
         total += coin
 
 # Calculate the change owed to the user
-change = total - PRICE
+change = PRICE - total
 
 # Output the change owed to the user
 if change > 0:
