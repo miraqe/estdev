@@ -18,14 +18,9 @@ while remaining > 0:
 
     # Check if the coin is a valid denomination
     if coin in DENOMINATIONS:
-        # Check if the coin does not exceed the remaining amount owed
-        if coin <= remaining:
-            # Add the coin to the total and subtract from the remaining amount owed
-            total += coin
-            remaining -= coin
-        else:
-            # Inform the user that the coin exceeds the remaining amount owed
-            print(f"Change Owed: {remaining - total}")
+        # Add the coin to the total and subtract from the remaining amount owed
+        total += coin
+        remaining -= coin
     else:
         # Ignore invalid input
         continue
@@ -33,19 +28,8 @@ while remaining > 0:
 # Calculate the change owed to the user
 change = total - PRICE
 
-# Initialize a list to store the coins to be returned as change
-coins_to_return = []
-
-# Loop through the denominations and calculate the change
-for denomination in DENOMINATIONS:
-    while change >= denomination:
-        coins_to_return.append(denomination)
-        change -= denomination
-
 # Output the change owed to the user
-if coins_to_return:
-    print("Change Owed: ")
-    for coin in coins_to_return:
-        print(coin)
+if change > 0:
+    print(f"Change Owed: {change}")
 else:
     print("Change Owed: 0")
