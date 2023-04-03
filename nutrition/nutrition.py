@@ -1,6 +1,4 @@
-import sys
-
-fruit_calories = {
+fruits = {
     "Apple": 130,
     "Avocado": 50,
     "Blackberries": 30,
@@ -30,5 +28,3 @@ fruit = input("Enter a fruit: ").lower()
 
 if fruit in fruit_calories:
     print("Calories:", fruits[fruit])
-else:
-    sys.exit()
