@@ -20,7 +20,10 @@ while total < PRICE:
     if coin in DENOMINATIONS and total + coin <= PRICE:
         # Add the coin to the total
         total += coin
-
+    elif change > 0:
+        print(f"Change Owed: {change}")
+    else:
+        print("Change Owed: 0")
 # Calculate the change owed to the user
 change = total - PRICE
 
