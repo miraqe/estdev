@@ -21,7 +21,7 @@ while total < PRICE:
         # Add the coin to the total
         total += coin
     else:
-        # Inform the user that the coin is invalid or exceeds the price of a bottle of Coke
+        # Ignore invalid input
         continue
 
 # Calculate the change owed to the user
