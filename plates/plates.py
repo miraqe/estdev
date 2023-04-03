@@ -1,35 +1,33 @@
-def is_vanity_plate(plate):
-    # check that plate has at least 2 and at most 6 characters
-    if not 2 <= len(plate) <= 6:
-        return "Invalid"
+def is_vanity_plate(s):
+    # Check that the string has at least 2 characters and at most 6 characters
+    if len(s) < 2 or len(s) > 6:
+        return False
 
-    # check that first 2 characters are letters
-    if not plate[:2].isalpha():
-        return "Invalid"
+    # Check that all characters are letters or digits
+    if not all(c.isalnum() for c in s):
+        return False
 
-    # check that the last characters are digits
-    if not plate[-4:].isdigit():
-        return "Invalid"
+    # Check that first two characters are letters
+    if not s[0].isalpha() or not s[1].isalpha():
+        return False
 
-    # check that there are no letters after the numbers
-    if plate[-3:].isalpha():
-        return "Invalid"
+    # Check that there are no letters after the numbers
+    if s[-1].isalpha():
+        return False
+    for i in range(len(s) - 2):
+        if s[i].isdigit() and s[i+1].isdigit() and s[i+2].isalpha():
+            return False
 
-    # check that the first digit is not 0 if it's in position 3
-    if len(plate) >= 4 and plate[2].isdigit() and plate[2] == '0':
-        return "Invalid"
+    # Check that the first character of the number sequence is not '0'
+    for i in range(2, len(s)):
+        if s[i].isdigit():
+            if s[i] == '0' and i != len(s)-1:
+                return False
+            else:
+                break
 
-    # check that the first digit is not 0 if it's in position 4 or 5
-    if len(plate) >= 5 and plate[3].isdigit() and plate[3] == '0':
-        return "Invalid"
-
-    # check that there are no numbers in between letters
-    for i in range(2, len(plate)-4):
-        if plate[i].isdigit() or plate[i+1].isdigit():
-            return "Invalid"
-
-    # if all checks pass, return "Valid"
-    return "Valid"
+    # If all checks pass, the vanity plate is valid
+    return True
 
 
 
