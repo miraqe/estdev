@@ -1,4 +1,4 @@
-def is_vanity_plate(s):
+def is_vanity_plate(plate):
     # check that plate has at least 2 and at most 6 characters
     if not 2 <= len(plate) <= 6:
         return "Invalid"
