@@ -23,7 +23,7 @@ fruits = {
 }
 
 # Get the user input and convert it to lowercase
-fruit = input("Enter the fruit name: ").lower()
+fruit = input("Enter a fruit: ").lower().replace(" ", "")
 
 # Check if the user input matches a fruit in the dictionary
 if fruit in fruits:
