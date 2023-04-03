@@ -10,7 +10,7 @@ total = 0
 # Loop until the user has inserted enough money
 while total < PRICE:
     # Prompt the user to insert a coin
-    coin = int(input("Amount Due: ", price))
+    coin = int(input(f"Amount Due: {total}"))
 
     # Check if the coin is a valid denomination and does not exceed the price of a bottle of Coke
     if coin in DENOMINATIONS and total + coin <= PRICE:
