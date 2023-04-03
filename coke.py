@@ -32,4 +32,3 @@ if change > 0:
     print(f"Change Owed: {change}")
 else:
     print("Change Owed: 0")
-
