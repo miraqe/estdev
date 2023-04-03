@@ -16,7 +16,7 @@ def is_valid(s):
         return False
 
     # Check that first character is not 0
-    if s[0] == '0':
+    if s[2:].isdigit() and s[2] == '0':
         return False
 
     # All checks passed, so string is valid
