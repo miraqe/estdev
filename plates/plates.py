@@ -1,4 +1,4 @@
-def is_valid_vanity_plate(s):
+def is_valid(s):
     # Check that the plate is between 2 and 6 characters long
     if len(s) < 2 or len(s) > 6:
         return False
