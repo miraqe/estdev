@@ -15,14 +15,20 @@ def is_vanity_plate(s):
             return False
 
     # Check that the first character of the number sequence is not '0'
+    num_flag = False
     for i in range(2, len(s)):
         if s[i].isdigit():
             if s[i] == '0' and i != len(s)-1:
                 return False
             else:
+                num_flag = True
                 break
-    else:
-        if s[-1].isdigit():
+
+    # Check that there are no letters between the first and last digits
+    if num_flag:
+        num_start = s.index([c for c in s if c.isdigit()][0])
+        num_end = s.rindex([c for c in s if c.isdigit()][-1])
+        if any(char.isalpha() for char in s[num_start:num_end+1]):
             return False
 
     # If all checks pass, the vanity plate is valid
