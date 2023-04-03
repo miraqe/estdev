@@ -28,7 +28,7 @@ fruit_calories = {
 
 fruit = input("Enter a fruit: ").lower()
 
-if fruit.capitalize() in fruit_calories:
-    print("Calories:", fruit_calories[fruit.capitalize()])
+if fruit in fruit_calories:
+    print("Calories:", fruits[fruit])
 else:
     sys.exit()
