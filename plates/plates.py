@@ -4,7 +4,7 @@ def is_valid(s):
         return False
 
     # Check that first two characters are letters
-    if not s[:2].isalpha():
+    if not s[:2].isalpha() or len(s[:2]) < 2:
         return False
 
     # Check that remaining characters are either letters or digits
@@ -16,7 +16,7 @@ def is_valid(s):
         return False
 
     # Check that first character is not 0
-    if s[2:].isdigit() and s[2:] == '0':
+    if s[0] == '0':
         return False
 
     # All checks passed, so string is valid
