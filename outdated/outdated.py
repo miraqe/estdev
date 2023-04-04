@@ -1,23 +1,39 @@
 from datetime import datetime
 
+MONTHS = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+]
+
 while True:
-    date_str = input("Enter a date in the format MM/DD/YYYY or Month Day, Year: ").strip()
-
     try:
+        date_str = input("Enter a date in the format MM/DD/YYYY or Month Day, Year: ").strip()
+        date_str = date_str.replace(",", "")
+        parts = date_str.split()
+
+        # Case when user input is Month Day, Year format
+        if len(parts) == 3:
+            month, day, year = parts
+            if month not in MONTHS:
+                raise ValueError("Invalid date format")
+            month_num = MONTHS.index(month) + 1
+            date_str = f"{month_num:02}/{day}/{year}"
+
+        # Case when user input is MM/DD/YYYY format
         datetime_obj = datetime.strptime(date_str, "%m/%d/%Y")
+        print(datetime_obj.strftime("%Y-%m-%d"))
+        break
+
     except ValueError:
-        try:
-            datetime_obj = datetime.strptime(date_str, "%B %d, %Y")
-        except ValueError:
-            print("Invalid date format. Please try again.")
-            continue
-        else:
-            date_str = datetime_obj.strftime("%m/%d/%Y")
-
-    if datetime_obj.year < 1900:
-        print("Date is too old. Please enter a more recent date.")
+        print("Invalid date format. Please try again.")
         continue
-
-    break
-
-print(datetime_obj.strftime("%Y-%m-%d"))
