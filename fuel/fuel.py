@@ -7,7 +7,7 @@ def get_fraction():
                 raise ValueError
             return x, y
         except (ValueError, ZeroDivisionError):
-            print("Invalid input. Please enter a valid fraction in the format X/Y.")
+            continue
 
 def calculate_percentage(x, y):
     percentage = (x / y) * 100
@@ -16,12 +16,16 @@ def calculate_percentage(x, y):
     elif percentage >= 99:
         return "F"
     else:
-        return str(round(percentage))
+        return str(round(percentage)) + "%"
 
 if __name__ == "__main__":
-    while True:
-        x, y = get_fraction()
-        percentage = calculate_percentage(x, y)
+    x, y = get_fraction()
+    percentage = calculate_percentage(x, y)
+    if percentage[-1] == "%":
+        percentage = percentage[:-1]
+    if percentage == "E":
+        print("E")
+    elif percentage == "F":
+        print("F")
+    else:
         print("{}%".format(percentage))
-        if percentage == "E" or percentage == "F":
-            break
