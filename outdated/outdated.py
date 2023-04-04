@@ -28,5 +28,5 @@ while True:
         break
     except ValueError:
         print("Invalid date format. Please try again.")
-
+        date_str = input("Enter a date in the format MM/DD/YYYY or Month Day, Year: ")
 print(datetime_obj.strftime("%Y-%m-%d"))
