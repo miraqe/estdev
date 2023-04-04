@@ -27,6 +27,8 @@ while True:
         datetime_obj = datetime.strptime(date_str, "%m/%d/%Y")
         break
     except ValueError:
-        print("Invalid date format. Please try again.")
+        if not old_day.endswith(","):
+            continue
+            print("Invalid date format. Please try again.")
 
 print(datetime_obj.strftime("%Y-%m-%d"))
