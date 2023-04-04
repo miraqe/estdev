@@ -18,6 +18,8 @@ MONTHS = [
 while True:
     try:
         date_str = input("Enter a date in the format MM/DD/YYYY or Month Day, Year: ").strip()
+        if "," not in date_str:
+            raise ValueError("Invalid date format")
         date_str = date_str.replace(",", "")
         parts = date_str.split()
 
@@ -31,9 +33,10 @@ while True:
 
         # Case when user input is MM/DD/YYYY format
         datetime_obj = datetime.strptime(date_str, "%m/%d/%Y")
-        print(datetime_obj.strftime("%Y-%m-%d"))
         break
 
     except ValueError:
         print("Invalid date format. Please try again.")
         continue
+
+print(datetime_obj.strftime("%Y-%m-%d"))
