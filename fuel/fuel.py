@@ -21,4 +21,4 @@ def calculate_percentage(x, y):
 if __name__ == "__main__":
     x, y = get_fraction()
     percentage = calculate_percentage(x, y)
-    print("Percentage: {}%".format(percentage))
+    print("{}%".format(percentage))
