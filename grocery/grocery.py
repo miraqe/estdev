@@ -6,6 +6,6 @@ try:
 except EOFError:
     pass
 
-print("Grocery List:")
+
 for item, count in sorted(grocery_list.items()):
     print(f"{count} {item.upper()}")
