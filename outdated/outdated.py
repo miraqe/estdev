@@ -1,42 +1,33 @@
-from datetime import datetime
-
-MONTHS = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-]
+months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
 while True:
     try:
-        date_str = input("Enter a date in the format MM/DD/YYYY or Month Day, Year: ").strip()
-        if "," not in date_str:
-            raise ValueError("Invalid date format")
-        date_str = date_str.replace(",", "")
-        parts = date_str.split()
 
-        # Case when user input is Month Day, Year format
-        if len(parts) == 3:
-            month, day, year = parts
-            if month not in MONTHS:
-                raise ValueError("Invalid date format")
-            month_num = MONTHS.index(month) + 1
-            date_str = f"{month_num:02}/{day}/{year}"
+        # user input
+        date = input("Date: ").strip()
 
-        # Case when user input is MM/DD/YYYY format
-        datetime_obj = datetime.strptime(date_str, "%m/%d/%Y")
-        break
+        # check if first charcter of string is not letter for (September 13, 1988)
+        if not date[0].isdigit():
 
-    except ValueError:
-        print("Invalid date format. Please try again.")
-        continue
+        # split the input string into month_day and year
+            month_day, year = date.split(",")
 
-print(datetime_obj.strftime("%Y-%m-%d"))
+        # split the month_day string into month and day
+            month, day = month_day.split(" ")
+
+        # if day are between 1 - 31 print the output
+            if (1<= int(day) <= 31):
+                print(f"{year}-{int(months.index(month)+1):02}-{int(day):02}")
+                break
+        else:
+
+            # split the input string into
+            month,day,year = date.split("/")
+
+            # check if month is between 1-12 and day is between 1-31 print the output
+            if (1 <= int(month) <= 12) and (1 <= int(day) <=31):
+                print(f"{year}-{int(month):02}-{int(day):02}")
+                break
+
+    except:
+        pass
