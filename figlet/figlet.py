@@ -19,7 +19,7 @@ else:
 # Check if font is valid
 if font_name not in Figlet().getFonts():
     print("Invalid usage")
-    sys.exit(1)
+    sys.exit
 
 # Print text in chosen font
 figlet = Figlet(font=font_name)
