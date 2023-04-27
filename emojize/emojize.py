@@ -1,6 +1,4 @@
 import emoji
-pip install emoji
-
 
 emoji_dict = emoji.EMOJI_ALIAS_UNICODE
 
