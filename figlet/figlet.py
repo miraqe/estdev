@@ -4,7 +4,7 @@ from pyfiglet import Figlet
 
 def print_usage():
     print("Usage: figlet.py [-f FONT] [TEXT]")
-    sys.exit(1)
+    sys.exit()
 
 # Parse command-line arguments
 if len(sys.argv) == 1:
