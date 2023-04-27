@@ -13,7 +13,6 @@ else:
     sys.exit(1)
 
 # Check if font is valid
-msg = input("Input: ")
 
 figlet.getFonts()
 
