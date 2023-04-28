@@ -6,8 +6,8 @@ def main():
     test_case()
 
 def test_value():
-    assert value('Hello') == 0
-    assert value('Hello, Anna') == 0
+    assert value("hello") == 0
+    assert value("Hello, Anna") == 0
     assert value("What's happening") == 100
     assert value("") == 100
     assert value('How are you doing?') == 20
