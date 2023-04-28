@@ -1,6 +1,6 @@
 def get_fraction():
     while True:
-        fraction = input("Enter a fraction in the format X/Y: ")
+        fraction = input("Fraction: ")
         try:
             x, y = map(int, fraction.split('/'))
             if y == 0 or x > y:
