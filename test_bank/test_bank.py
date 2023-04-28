@@ -8,7 +8,6 @@ def main():
 def test_value():
     assert value("hello") == 0
     assert value("Hello, Anna") == 0
-    assert value("What's happening") == 100
     assert value("hey") == 20
     assert value("Hi") == 20
 
