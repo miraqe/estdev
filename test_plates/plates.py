@@ -1,15 +1,18 @@
+def main():
+    plate = input("Plate: ")
+    if is_vanity_plate(plate):
+        print("Valid")
+    else:
+        print("Invalid")
+
 def is_vanity_plate(s):
     # Check that the string has at least 2 characters and at most 6 characters
     if len(s) < 2 or len(s) > 6:
         return False
 
     # Check that the string contains only letters
-    if s.isalpha():
+    if s[0].isalpha() == False or s[1].isalpha == False:
         return True
-
-    # Check that first two characters are letters
-    if not s[0].isalpha() or not s[1].isalpha():
-        return False
 
     # Check that there are no letters after the numbers
     if s[-1].isalpha():
@@ -42,12 +45,7 @@ def is_vanity_plate(s):
 
 
 
-def main():
-    plate = input("Plate: ")
-    if is_vanity_plate(plate):
-        print("Valid")
-    else:
-        print("Invalid")
+
 
 
 main()
