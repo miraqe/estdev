@@ -10,6 +10,8 @@ def test_value():
     assert value("Hello, Anna") == 0
     assert value("hey") == 20
     assert value("Hi") == 20
+    assert value("What's up?") == 100
+    assert value("good evening") == 100
 
 def test_numbers():
     assert value('10') == 100
