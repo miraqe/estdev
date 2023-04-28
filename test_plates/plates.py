@@ -12,7 +12,7 @@ def is_vanity_plate(s):
 
     # Check that the string contains only letters
     if s[0].isalpha() == False or s[1].isalpha == False:
-        return True
+        return False
 
     # Check that there are no letters after the numbers
     if s[-1].isalpha():
