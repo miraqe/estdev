@@ -24,5 +24,5 @@ def test_case():
     assert value('welcome') == 100
     assert value('sUP dUde') == 100
 
-if _name_ == "__main__":
+if __name__ == "__main__":
     main()
