@@ -1,9 +1,4 @@
-def main():
-    plate = input("Plate: ")
-    if is_vanity_plate(plate):
-        print("Valid")
-    else:
-        print("Invalid")
+
 
 def is_vanity_plate(s):
     # Check that the string has at least 2 characters and at most 6 characters
@@ -45,7 +40,12 @@ def is_vanity_plate(s):
 
 
 
-
+def main():
+    plate = input("Plate: ")
+    if is_vanity_plate(plate):
+        print("Valid")
+    else:
+        print("Invalid")
 
 
 main()
