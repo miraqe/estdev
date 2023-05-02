@@ -1,28 +1,28 @@
 import sys
 import re
 
-
 def main():
     ip = input("IPv4 Address: ")
     if validate(ip):
-        sys.exit(0)  # success
+        print(f"{ip} is a valid IPv4 address.")
     else:
-        sys.exit(1)  # failure
+        print(f"{ip} is not a valid IPv4 address.")
+        sys.exit(1)
 
 
 def validate(ip):
-    pattern = r"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$"
-    match = re.match(pattern, ip)
-    if match is None:
+    octets = ip.split(".")
+    if len(octets) != 4:
         return False
-
-    # Ensure that each octet is between 0 and 255.
-    octets = [int(octet) for octet in match.groups()]
-    if any(octet < 0 or octet > 255 for octet in octets):
-        return False
-
+    for octet in octets:
+        if not octet.isdigit():
+            return False
+        value = int(octet)
+        if value < 0 or value > 255:
+            return False
     return True
 
 
 if __name__ == "__main__":
     main()
+
