@@ -7,10 +7,11 @@ def main():
 
 
 def parse(s):
-    pattern = r'<iframe.+?src=[\'"](https?:\/\/www\.youtube\.com\/embed\/.+?)[\'"].*?<\/iframe>'
-    match = re.search(pattern, s)
+    match = re.search(r'src="(.*?youtube.*?)".*?</iframe>', s, re.DOTALL | re.IGNORECASE)
     if match:
-        return match.group(1)
+        url = match.group(1)
+        url = re.sub(r'^//', 'https://', url)
+        return url
     else:
         return None
 
