@@ -1,29 +1,20 @@
-import sys
 import re
+import sys
 
 def main():
-    ip = input("IPv4 Address: ")
-    if validate(ip):
-        print(f"{ip} is a valid IPv4 address.")
-    else:
-        print(f"{ip} is not a valid IPv4 address.")
-        sys.exit(1)
-
+    print(validate(input("IPv4 Address: ")))
 
 def validate(ip):
-    pattern = r'^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$'
-    match = re.match(pattern, ip)
-    if not match:
+    # pattern to match a valid IP address
+    pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+    if re.match(pattern, ip):
+        return True
+    else:
         return False
-    parts = match.groups()
-    for part in parts:
-        if int(part) > 255:
-            return False
-    return True
-
-
-
 
 if __name__ == "__main__":
-    main()
-
+    if not validate(sys.argv[1]):
+        print("Invalid IPv4 address", file=sys.stderr)
+        sys.exit(1)
+    else:
+        sys.exit(0)
