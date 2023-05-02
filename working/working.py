@@ -1,29 +1,32 @@
 import re
 
 
-def convert(s):
-    # Match the input string to one of the two allowed formats
-    match = re.match(r"(\d{1,2})(:\d{2})? (AM|PM) to (\d{1,2})(:\d{2})? (AM|PM)", s)
-    if not match:
-        raise ValueError("Invalid input format")
+def convert(time_str):
+    # Split the time string into start and end times
+    start, end = time_str.split(" to ")
 
-    # Extract the hours, minutes, and meridiem for the start and end times
-    start_hour = int(match.group(1))
-    start_minute = int(match.group(2)[1:]) if match.group(2) else 0
-    start_meridiem = match.group(3)
-    end_hour = int(match.group(4))
-    end_minute = int(match.group(5)[1:]) if match.group(5) else 0
-    end_meridiem = match.group(6)
-
-    # Check that the hours and minutes are valid
-    if start_hour > 12 or end_hour > 12 or start_minute >= 60 or end_minute >= 60:
-        raise ValueError("Invalid time")
-
-    # Convert the start and end times to 24-hour format
-    if start_meridiem == "PM" and start_hour != 12:
+    # Convert the start time to military time
+    start_hour, start_min = map(int, start[:-3].split(":"))
+    start_meridian = start[-2:]
+    if start_meridian == "PM" and start_hour != 12:
         start_hour += 12
-    if end_meridiem == "PM" and end_hour != 12:
+
+    # Convert the end time to military time
+    end_hour, end_min = map(int, end[:-3].split(":"))
+    end_meridian = end[-2:]
+    if end_meridian == "PM" and end_hour != 12:
         end_hour += 12
-    if end_hour < start_hour or (end_hour == start_hour and end_minute < start_minute):
-        end_hour += 12 if end_hour < 12 else 24
-    return f"{start_hour:02d}:{start_minute:02d} to {end_hour:02d}:{end_minute:02d}"
+    if end_meridian == "AM" and end_hour == 12:
+        end_hour = 0
+
+    # Adjust the end time if it's on the next day
+    if end_hour < start_hour:
+        end_hour += 24
+
+    # Format the start and end times in military format
+    start_time = f"{start_hour:02d}:{start_min:02d}"
+    end_time = f"{end_hour:02d}:{end_min:02d}"
+
+    # Combine the start and end times into a string
+    return f"{start_time} to {end_time}"
+
