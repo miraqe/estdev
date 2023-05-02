@@ -12,7 +12,7 @@ def parse(html):
         iframe = iframe_search.group()
 
         # Search for the YouTube link in the iframe tag
-        youtube_search = re.search(r'src=["\'](?P<link>https?://www\.youtube\.com/embed/(?P<id>[^/]+))', iframe)
+        youtube_search = re.search(r'src=["\'](?P<link>https?://youtube\.com/embed/(?P<id>[^/]+))', iframe)
         if youtube_search:
             # Extract the YouTube link and ID
             link = youtube_search.group('link')
