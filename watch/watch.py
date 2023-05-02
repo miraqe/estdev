@@ -7,15 +7,12 @@ def main():
 
 
 def parse(s):
-    iframe = re.findall(r'<iframe .*?</iframe>', s, re.DOTALL)
-    if iframe:
-        iframe = iframe[0]
-        src = re.findall(r'src="(.+?)"', iframe)
-        if src:
-            url = src[0]
-            if "youtube.com" in url:
-                return url
-    return None
+    pattern = r'<iframe.+?src=[\'"](https?:\/\/www\.youtube\.com\/embed\/.+?)[\'"].*?<\/iframe>'
+    match = re.search(pattern, s)
+    if match:
+        return match.group(1)
+    else:
+        return None
 
 
 if __name__ == "__main__":
