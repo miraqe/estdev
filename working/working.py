@@ -10,6 +10,7 @@ def convert(time_range: str) -> str:
     time_2_hour = int(time_2[0])
     time_2_minute = int(time_2[1])
     time_2_suffix = time_2[2]
+    print(time_1, time_2)
 
     if time_1_suffix == 'PM' and time_1_hour != 12:
         time_1_hour += 12
