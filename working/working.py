@@ -1,37 +1,29 @@
-def convert(start_time, end_time):
-    """
-    This function takes the start time and end time in the format of "HH:MM" and returns a formatted string
-    representing the working hours of an employee.
-    """
-    # Convert start and end time to minutes
-    start_minutes = int(start_time[:2]) * 60 + int(start_time[3:])
-    end_minutes = int(end_time[:2]) * 60 + int(end_time[3:])
+import re
 
-    # Check if end time is before start time and add 24 hours to end time if it is
-    if end_minutes < start_minutes:
-        end_minutes += 24 * 60
 
-    # Calculate total minutes worked
-    total_minutes = end_minutes - start_minutes
+def convert(s):
+    # Match the input string to one of the two allowed formats
+    match = re.match(r"(\d{1,2})(:\d{2})? (AM|PM) to (\d{1,2})(:\d{2})? (AM|PM)", s)
+    if not match:
+        raise ValueError("Invalid input format")
 
-    # Convert total minutes worked to hours and minutes
-    hours = total_minutes // 60
-    minutes = total_minutes % 60
+    # Extract the hours, minutes, and meridiem for the start and end times
+    start_hour = int(match.group(1))
+    start_minute = int(match.group(2)[1:]) if match.group(2) else 0
+    start_meridiem = match.group(3)
+    end_hour = int(match.group(4))
+    end_minute = int(match.group(5)[1:]) if match.group(5) else 0
+    end_meridiem = match.group(6)
 
-    # Format output string
-    if hours < 10:
-        hours_str = "0" + str(hours)
-    else:
-        hours_str = str(hours)
+    # Check that the hours and minutes are valid
+    if start_hour > 12 or end_hour > 12 or start_minute >= 60 or end_minute >= 60:
+        raise ValueError("Invalid time")
 
-    if minutes < 10:
-        minutes_str = "0" + str(minutes)
-    else:
-        minutes_str = str(minutes)
-
-    return hours_str + ":" + minutes_str + " hours worked"
-
-if __name__ == "__main__":
-    start_time = input("Enter start time (HH:MM): ")
-    end_time = input("Enter end time (HH:MM): ")
-    print(working_hours(start_time, end_time))
+    # Convert the start and end times to 24-hour format
+    if start_meridiem == "PM" and start_hour != 12:
+        start_hour += 12
+    if end_meridiem == "PM" and end_hour != 12:
+        end_hour += 12
+    if end_hour < start_hour or (end_hour == start_hour and end_minute < start_minute):
+        end_hour += 24
+    return f"{start_hour:02d}:{start_minute:02d} to {end_hour:02d}:{end_minute:02d}"
