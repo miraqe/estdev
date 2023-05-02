@@ -24,13 +24,13 @@ with open(sys.argv[1], newline='') as csvfile:
 # Cleanse data
 clean_data = [[cell.strip().replace('\n', ' ') for cell in row] for row in data]
 
-# Check that CSV has at least 2 rows
-if len(clean_data) < 2:
-    print("Error: CSV file must have at least 2 rows.")
+# Check if header row is present in input file
+if clean_data[0] != ["first", "last", "house"]:
+    print("Error: Input file does not contain the expected header row.")
     sys.exit(1)
 
 # Add header row to cleansed data
-clean_data.insert(0, ["first", "last", "house"])
+clean_data[0] = ["first", "last", "house"]
 
 # Write cleansed data to output file
 with open("after.csv", "w", newline='') as outfile:
