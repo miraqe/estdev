@@ -1,5 +1,35 @@
 import re
 
+def to_24h(time_str):
+    if time_str.endswith("AM"):
+        if time_str.startswith("12"):
+            hour = 0
+        else:
+            hour = int(time_str[:time_str.index(":")])
+        minute = int(time_str[time_str.index(":")+1:time_str.index(" ")])
+    elif time_str.endswith("PM"):
+        if time_str.startswith("12"):
+            hour = 12
+        else:
+            hour = int(time_str[:time_str.index(":")]) + 12
+        minute = int(time_str[time_str.index(":")+1:time_str.index(" ")])
+    else:
+        raise ValueError("Invalid time format")
+
+    # check if end time is before start time and add 24 hours if it is
+    if "to" in time_str:
+        start, end = time_str.split("to")
+        end_hour = int(end[:end.index(":")])
+        if end.endswith("PM") and end_hour != 12:
+            end_hour += 12
+        elif end.endswith("AM") and end_hour == 12:
+            end_hour = 0
+        if end_hour < hour:
+            end_hour += 24
+        end_minute = int(end[end.index(":")+1:end.index(" ")])
+        return f"{hour:02d}:{minute:02d} to {end_hour:02d}:{end_minute:02d}"
+    else:
+        return f"{hour:02d}:{minute:02d}"
 
 def convert(s):
     # Match the input string to one of the two allowed formats
