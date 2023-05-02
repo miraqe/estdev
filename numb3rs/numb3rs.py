@@ -1,26 +1,28 @@
-def validate(ip):
-    # Split the IP address into its four bytes
-    bytes = ip.split('.')
-
-    # Check that there are exactly four bytes
-    if len(bytes) != 4:
-        return False
-
-    # Check that each byte is between 0 and 255
-    for byte in bytes:
-        if not byte.isdigit():
-            return False
-        if int(byte) < 0 or int(byte) > 255:
-            return False
-
-    return True
+import sys
+import re
 
 
 def main():
     ip = input("IPv4 Address: ")
-    if not validate(ip):
-        print(f"Error: {ip} is not a valid IPv4 address")
-        sys.exit(1)
+    if validate(ip):
+        sys.exit(0)  # success
     else:
-        print(f"{ip} is a valid IPv4 address")
-        sys.exit(0)
+        sys.exit(1)  # failure
+
+
+def validate(ip):
+    pattern = r"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$"
+    match = re.match(pattern, ip)
+    if match is None:
+        return False
+
+    # Ensure that each octet is between 0 and 255.
+    octets = [int(octet) for octet in match.groups()]
+    if any(octet < 0 or octet > 255 for octet in octets):
+        return False
+
+    return True
+
+
+if __name__ == "__main__":
+    main()
