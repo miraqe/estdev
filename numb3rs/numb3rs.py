@@ -11,21 +11,16 @@ def main():
 
 
 def validate(ip):
-    # Regular expression pattern for IPv4 addresses
-    pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
-
-    if not re.match(pattern, ip):
+    pattern = r'^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$'
+    match = re.match(pattern, ip)
+    if not match:
         return False
-
-    # Split IP address into octets
-    octets = ip.split('.')
-
-    # Check if each octet is a valid integer between 0 and 255
-    for octet in octets:
-        if not 0 <= int(octet) <= 255:
+    parts = match.groups()
+    for part in parts:
+        if int(part) > 255:
             return False
-
     return True
+
 
 
 
