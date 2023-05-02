@@ -24,9 +24,13 @@ with open(sys.argv[1], newline='') as csvfile:
 # Cleanse data
 clean_data = [[cell.strip().replace('\n', ' ') for cell in row] for row in data]
 
-# Write cleansed data to output file
+# Reorder columns in the cleaned data
+ordered_data = [[row[0], row[1], row[2]] for row in clean_data]
+
+# Write ordered data to output file
 with open("after.csv", "w", newline='') as outfile:
     writer = csv.writer(outfile)
-    writer.writerows(clean_data)
+    writer.writerow(["first", "last", "house"])
+    writer.writerows(ordered_data)
 
 print("CSV file has been cleansed and saved as 'after.csv'.")
