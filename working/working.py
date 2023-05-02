@@ -2,29 +2,19 @@ import re
 
 def convert(time_range: str) -> str:
     pattern = re.compile(r'(\d{1,2}):(\d{2})\s*([AP]M)')
-    times = pattern.findall(time_range)
-    if not times or len(times) != 2:
-        return "Invalid input format"
+    time_1, time_2 = pattern.findall(time_range)
 
-    time_1, time_2 = times[0], times[1]
-    hour_1, minute_1, period_1 = time_1
-    hour_2, minute_2, period_2 = time_2
+    # Check if the input time is valid
+    for time in (time_1, time_2):
+        hour, minute = int(time[0]), int(time[1])
+        if hour > 12 or minute >= 60:
+            return "Invalid input format"
 
-    # Convert to 24-hour format
-    if period_1 == 'PM' and hour_1 != '12':
-        hour_1 = str(int(hour_1) + 12)
-    if period_2 == 'PM' and hour_2 != '12':
-        hour_2 = str(int(hour_2) + 12)
-    if period_1 == 'AM' and hour_1 == '12':
-        hour_1 = '00'
-    if period_2 == 'AM' and hour_2 == '12':
-        hour_2 = '00'
+    # Convert to military time
+    time_1_hour, time_1_minute = int(time_1[0]), int(time_1[1])
+    time_2_hour, time_2_minute = int(time_2[0]), int(time_2[1])
+    time_1_military = time_1_hour + 12 if time_1[2] == 'PM' and time_1_hour != 12 else time_1_hour
+    time_2_military = time_2_hour + 12 if time_2[2] == 'PM' and time_2_hour != 12 else time_2_hour
 
-    time_1 = f"{hour_1}:{minute_1}"
-    time_2 = f"{hour_2}:{minute_2}"
-
-    # Handle ranges that cross over midnight
-    if time_1 < time_2:
-        return f"{time_1} to {time_2}"
-    else:
-        return f"{time_1} to {time_2} + 24 hours"
+    # Convert to string
+    return f"{time_1_military:02d}:{time_1_minute:02d} to {time_2_military:02d}:{time_2_minute:02d}"
