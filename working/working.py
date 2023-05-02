@@ -29,4 +29,4 @@ if __name__ == "__main__":
         print(start_24h + " to " + end_24h)
     except ValueError:
         # if the input is invalid, raise a ValueError
-        raise ValueError("Invalid input")
+        raise ValueError
