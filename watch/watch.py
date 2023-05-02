@@ -1,24 +1,33 @@
-import re
 import sys
+import re
+
 
 def main():
-    print(parse(input("HTML: ")))
+    print(parse(sys.stdin.read()))
+
 
 def parse(s):
-    # Define a regular expression pattern to match the YouTube URL in the src attribute of an iframe element
-    pattern = r'<iframe.*?src="https?://(?:www\.)?youtube\.com/embed/([^\s"]+)".*?</iframe>'
+    # Extract all HTML tags
+    tags = re.findall(r"<.*?>", s)
 
-    # Use re.search to search for a match to the pattern in the input string s
-    match = re.search(pattern, s)
+    # Extract tag names and attributes
+    results = []
+    for tag in tags:
+        # Get tag name
+        tag_match = re.search(r"<(\w+)", tag)
+        tag_name = tag_match.group(1) if tag_match else ""
 
-    # If there's a match, extract the video ID and return the shortened URL
-    if match:
-        video_id = match.group(1)
-        return f"https://youtu.be/{video_id}"
+        # Get attributes
+        attrs = {}
+        attr_matches = re.findall(r"(\w+)\s*=\s*[\"']?([^\"']*)[\"']?", tag)
+        for attr_match in attr_matches:
+            attr_name, attr_value = attr_match
+            attrs[attr_name] = attr_value
 
-    # If there's no match, return None
-    else:
-        return None
+        results.append((tag_name, attrs))
+
+    return results
+
 
 if __name__ == "__main__":
     main()
