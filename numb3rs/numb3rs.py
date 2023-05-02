@@ -3,21 +3,23 @@ import sys
 
 
 def main():
-    print(validate(input("IPv4 Address: ")))
-    sys.exit(0)
+    if validate(input("IPv4 Address: ")):
+        print("True")
+    else:
+        print("False")
+        sys.exit(1)
 
 
 def validate(ip):
     pattern = r'^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$'
     if not re.match(pattern, ip):
-        sys.exit(1)
+        return "False"
 
     octets = ip.split('.')
     for octet in octets:
         if int(octet) > 255:
-            sys.exit(1)
-    return True
-
+            return "False"
+    return "True"
 
 
 if __name__ == "__main__":
