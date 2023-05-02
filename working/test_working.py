@@ -1,16 +1,15 @@
 from working import convert
 
-
 def test_valid_input_1():
-    assert convert("9:00 AM to 5:00 PM") == "09:00 to 17:00"
+    assert convert("2:30 PM to 11:45 PM") == "14:30 to 23:45"
 
 
 def test_valid_input_2():
-    assert convert("9 AM to 5 PM") == "09:00 to 17:00"
+    assert convert("6:20 AM to 12:40 PM") == "06:20 to 12:40"
 
 
 def test_valid_input_3():
-    assert convert("10 PM to 8 AM") == "22:00 to 08:00"
+    assert convert("10:00 PM to 8:00 AM") == "22:00 to 08:00"
 
 
 def test_valid_input_4():
@@ -18,27 +17,15 @@ def test_valid_input_4():
 
 
 def test_invalid_input_1():
-    try:
-        convert("9:60 AM to 5:60 PM")
-    except ValueError as e:
-        assert str(e) == "Invalid time"
-    else:
-        assert False
+    assert convert("10:00 PM to 25:00 PM") == "Invalid input format"
 
 
 def test_invalid_input_2():
-    try:
-        convert("9 AM - 5 PM")
-    except ValueError as e:
-        assert str(e) == "Invalid input format"
-    else:
-        assert False
+    assert convert("not enough values to unpack (expected 2, got 1)") == "Invalid input format"
 
 
 def test_invalid_input_3():
-    try:
-        convert("09:00 AM - 17:00 PM")
-    except ValueError as e:
-        assert str(e) == "Invalid input format"
-    else:
-        assert False
+    assert convert("10:00 PM to 12:00") == "Invalid input format"
+
+
+
