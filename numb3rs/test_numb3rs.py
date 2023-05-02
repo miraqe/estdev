@@ -12,3 +12,4 @@ def test_invalid_ipv4():
     assert validate("cat") == False
     assert validate("256.256.256.256") == False
     assert validate("192.168.1") == False
+    assert validate("75.456.74.62") == False
