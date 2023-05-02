@@ -24,6 +24,16 @@ def convert(s):
         start_hour += 12
     if end_meridiem == "PM" and end_hour != 12:
         end_hour += 12
+    if start_hour == 12:
+        start_hour = 0
+    if end_hour == 12:
+        end_hour = 0
     if end_hour < start_hour or (end_hour == start_hour and end_minute < start_minute):
         end_hour += 24
-    return f"{start_hour:02d}:{start_minute:02d} to {end_hour:02d}:{end_minute:02d}"
+
+    # Format the start and end times as strings
+    start_time = f"{start_hour:02d}:{start_minute:02d}"
+    end_time = f"{end_hour:02d}:{end_minute:02d}"
+
+    # Return the formatted time range
+    return f"{start_time} to {end_time}"
