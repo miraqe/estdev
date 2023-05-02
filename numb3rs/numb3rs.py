@@ -10,7 +10,8 @@ def main():
 def validate(ip):
     pattern = r'^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$'
     if not re.match(pattern, ip):
-        return False
+        
+        sys.exit(1)
     octets = ip.split('.')
     for octet in octets:
         if int(octet) > 255:
