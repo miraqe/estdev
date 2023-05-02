@@ -1,38 +1,34 @@
 import csv
 import sys
-import os.path
 
-# Check for correct number of arguments
+# Check that the user provided exactly two command-line arguments
 if len(sys.argv) != 3:
-    print("Usage: python scourgify.py input.csv")
-    sys.exit(1)
+    sys.exit("Usage: python scourgify.py input.csv output.csv")
 
-# Check that input file exists
-if not os.path.isfile(sys.argv[1]):
-    print(f"Error: {sys.argv[1]} not found.")
-    sys.exit(1)
+# Attempt to open the input file for reading
+try:
+    with open(sys.argv[1], newline='') as input_file:
+        reader = csv.DictReader(input_file)
+        rows = list(reader)
+except FileNotFoundError:
+    sys.exit(f"Error: File '{sys.argv[1]}' not found.")
 
-# Check if output file exists and overwrite if necessary
-if os.path.isfile(sys.argv[2]):
-    print(f"Warning: {sys.argv[2]} already exists and will be overwritten.")
+# Convert each name into separate first and last name columns
+for row in rows:
+    name = row["name"]
+    last, first = name.split(", ")
+    row["first"] = first
+    row["last"] = last
+    del row["name"]
 
-# Open input file and read contents
-with open(sys.argv[1], newline='') as csvfile:
-    reader = csv.reader(csvfile)
-    data = [row for row in reader]
-
-# Cleanse data
-clean_data = [[cell.strip().replace('\n', ' ') for cell in row] for row in data]
-
-# Add header row to cleansed data
-clean_data.insert(0, ["first", "last", "house"])
-
-# Write cleansed data to output file
-with open(sys.argv[2], "w", newline='') as outfile:
-    writer = csv.writer(outfile)
-    writer.writerows(clean_data)
-
-print(f"CSV file has been cleansed and saved as {sys.argv[2]}.")
-
-# Exit with success status code
-sys.exit(0)
+# Attempt to open the output file for writing and write the rows to it
+try:
+    with open(sys.argv[2], "w", newline='') as output_file:
+        fieldnames = ["first", "last", "house"]
+        writer = csv.DictWriter(output_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+except PermissionError:
+    sys.exit(f"Error: Permission denied when writing to file '{sys.argv[2]}'")
+except:
+    sys.exit("An unknown error occurred.")
