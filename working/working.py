@@ -1,34 +1,32 @@
 import re
+import sys
 
-def convert(time_range: str) -> str:
-    pattern = re.compile(r'(\d{1,2}):(\d{2})\s*([AP]M)')
-    matches = pattern.findall(time_range)
+# function to convert time from 12 hour to 24 hour format
+def convert_time(time):
+    if time.endswith("AM"):
+        if time.startswith("12"):
+            return "00" + time[2:-2]
+        else:
+            return time[:-2]
+    else:
+        if time.startswith("12"):
+            return time[:-2]
+        else:
+            return str(int(time[:2]) + 12) + time[2:-2]
 
-    if len(matches) != 2:
-        raise ValueError("Invalid input format")
+if __name__ == "__main__":
+    # prompt the user for input
+    time_input = input("Hours: ")
+    try:
+        # split the input by " to " to get the start and end times
+        start, end = re.split(" to ", time_input)
 
-    time_1 = matches[0]
-    time_2 = matches[1]
+        # convert start and end times to 24 hour format
+        start_24h = convert_time(start)
+        end_24h = convert_time(end)
 
-    time_1_hour = int(time_1[0])
-    time_1_minute = int(time_1[1])
-    time_1_ampm = time_1[2]
-
-    time_2_hour = int(time_2[0])
-    time_2_minute = int(time_2[1])
-    time_2_ampm = time_2[2]
-
-    if time_1_ampm == 'PM' and time_1_hour != 12:
-        time_1_hour += 12
-    elif time_1_ampm == 'AM' and time_1_hour == 12:
-        time_1_hour = 0
-
-    if time_2_ampm == 'PM' and time_2_hour != 12:
-        time_2_hour += 12
-    elif time_2_ampm == 'AM' and time_2_hour == 12:
-        time_2_hour = 0
-
-    time_1_str = f"{time_1_hour:02d}:{time_1_minute:02d}"
-    time_2_str = f"{time_2_hour:02d}:{time_2_minute:02d}"
-
-    return f"{time_1_str} to {time_2_str}"
+        # print the start and end times in the 24 hour format
+        print(start_24h + " to " + end_24h)
+    except ValueError:
+        # if the input is invalid, raise a ValueError
+        raise ValueError("Invalid input")
