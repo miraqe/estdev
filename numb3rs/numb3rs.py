@@ -1,21 +1,18 @@
 def validate(ip):
-    # Split the IP address into its component bytes
-    bytes = ip.split(".")
+    # Split the IP address into its four bytes
+    bytes = ip.split('.')
 
-    # Check that the IP address has exactly four bytes
+    # Check that there are exactly four bytes
     if len(bytes) != 4:
         return False
 
-    # Check that each byte is an integer between 0 and 255
+    # Check that each byte is between 0 and 255
     for byte in bytes:
-        try:
-            num = int(byte)
-            if num < 0 or num > 255:
-                return False
-        except ValueError:
+        if not byte.isdigit():
+            return False
+        if int(byte) < 0 or int(byte) > 255:
             return False
 
-    # If we made it this far, the IP address is valid
     return True
 
 
