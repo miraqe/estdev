@@ -1,32 +1,45 @@
 import csv
 import sys
 
+# Check for correct usage
+if len(sys.argv) != 3:
+    print("Usage: python scourgify.py input_file.csv")
+    sys.exit(1)
 
-def clean_csv(input_file, output_file):
-    with open(input_file, "r") as file:
-        reader = csv.reader(file)
-        rows = [row for row in reader if len(row) == 3]
-    with open(output_file, "w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerows(rows)
+# Check that input file exists
+try:
+    with open(sys.argv[1], "r") as file:
+        csvreader = csv.reader(file)
+        header = next(csvreader)
+except FileNotFoundError:
+    print(f"{sys.argv[1]} not found.")
+    sys.exit(1)
 
+# Create the output file
+with open("after.csv", "w", newline="") as file:
+    csvwriter = csv.writer(file)
+    csvwriter.writerow(header)
 
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python scourgify.py input_file.csv")
-        sys.exit(1)
+    # Iterate over each row of the input file
+    for row in csvreader:
+        # Clean up the data
+        for i, item in enumerate(row):
+            if isinstance(item, str):
+                row[i] = item.strip().title()
 
-    input_file = sys.argv[1]
-    output_file = "after.csv"
+        # Write the cleaned row to the output file
+        csvwriter.writerow(row)
 
-    try:
-        clean_csv(input_file, output_file)
-    except FileNotFoundError:
-        print("Invalid input file")
-        sys.exit(1)
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-        sys.exit(1)
-    else:
-        print(f"Successfully cleaned {input_file} to {output_file}")
-        sys.exit(0)
+# Check that output file has correct format
+try:
+    with open("after.csv", "r") as file:
+        csvreader = csv.reader(file)
+        header = next(csvreader)
+        if header != ["First Name", "Last Name", "Email", "Phone"]:
+            print("Output file does not have specified format.")
+            sys.exit(1)
+except FileNotFoundError:
+    print("Output file not found.")
+    sys.exit(1)
+
+print("CSV file cleaned successfully!")
