@@ -5,17 +5,20 @@ def main():
     print(parse(input("HTML: ")))
 
 def parse(s):
-    # Remove all tags and their contents
-    s = re.sub('<.*?>', '', s)
+    # Define a regular expression pattern to match the YouTube URL in the src attribute of an iframe element
+    pattern = r'<iframe.*?src="https?://(?:www\.)?youtube\.com/embed/([^\s"]+)".*?</iframe>'
 
-    # Remove leading/trailing whitespace
-    s = s.strip()
+    # Use re.search to search for a match to the pattern in the input string s
+    match = re.search(pattern, s)
 
-    # Remove consecutive whitespace
-    s = re.sub('\s+', ' ', s)
+    # If there's a match, extract the video ID and return the shortened URL
+    if match:
+        video_id = match.group(1)
+        return f"https://youtu.be/{video_id}"
 
-    # Return the result
-    return s
+    # If there's no match, return None
+    else:
+        return None
 
 if __name__ == "__main__":
     main()
