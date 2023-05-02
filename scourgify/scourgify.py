@@ -34,3 +34,5 @@ with open("after.csv", "w", newline='') as outfile:
     writer.writerows(ordered_data)
 
 print("CSV file has been cleansed and saved as 'after.csv'.")
+
+sys.exit(0)
