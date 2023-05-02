@@ -3,7 +3,7 @@ import sys
 import os.path
 
 # Check for correct number of arguments
-if len(sys.argv) != 2:
+if len(sys.argv) != 3:
     print("Usage: python scourgify.py input.csv")
     sys.exit(1)
 
