@@ -11,16 +11,22 @@ def main():
 
 
 def validate(ip):
-    octets = ip.split(".")
-    if len(octets) != 4:
+    # Regular expression pattern for IPv4 addresses
+    pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
+
+    if not re.match(pattern, ip):
         return False
+
+    # Split IP address into octets
+    octets = ip.split('.')
+
+    # Check if each octet is a valid integer between 0 and 255
     for octet in octets:
-        if not octet.isdigit():
+        if not 0 <= int(octet) <= 255:
             return False
-        value = int(octet)
-        if value < 0 or value > 255:
-            return False
+
     return True
+
 
 
 if __name__ == "__main__":
