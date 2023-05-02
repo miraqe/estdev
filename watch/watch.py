@@ -1,32 +1,21 @@
-import sys
 import re
+import sys
 
 
 def main():
-    print(parse(sys.stdin.read()))
+    print(parse(input("HTML: ")))
 
 
 def parse(s):
-    # Extract all HTML tags
-    tags = re.findall(r"<.*?>", s)
-
-    # Extract tag names and attributes
-    results = []
-    for tag in tags:
-        # Get tag name
-        tag_match = re.search(r"<(\w+)", tag)
-        tag_name = tag_match.group(1) if tag_match else ""
-
-        # Get attributes
-        attrs = {}
-        attr_matches = re.findall(r"(\w+)\s*=\s*[\"']?([^\"']*)[\"']?", tag)
-        for attr_match in attr_matches:
-            attr_name, attr_value = attr_match
-            attrs[attr_name] = attr_value
-
-        results.append((tag_name, attrs))
-
-    return results
+    iframe = re.findall(r'<iframe .*?</iframe>', s, re.DOTALL)
+    if iframe:
+        iframe = iframe[0]
+        src = re.findall(r'src="(.+?)"', iframe)
+        if src:
+            url = src[0]
+            if "youtube.com" in url:
+                return url
+    return None
 
 
 if __name__ == "__main__":
