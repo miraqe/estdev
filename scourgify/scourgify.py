@@ -4,7 +4,7 @@ import os.path
 
 # Check for correct number of arguments
 if len(sys.argv) != 3:
-    print("Usage: python scourgify.py input.csv")
+    print("Usage: python scourgify.py input.csv output.csv")
     sys.exit(1)
 
 # Check that input file exists
@@ -13,8 +13,8 @@ if not os.path.isfile(sys.argv[1]):
     sys.exit(1)
 
 # Check if output file exists and overwrite if necessary
-if os.path.isfile("after.csv"):
-    print("Warning: 'after.csv' already exists and will be overwritten.")
+if os.path.isfile(sys.argv[2]):
+    print(f"Warning: {sys.argv[2]} already exists and will be overwritten.")
 
 # Open input file and read contents
 with open(sys.argv[1], newline='') as csvfile:
@@ -24,15 +24,14 @@ with open(sys.argv[1], newline='') as csvfile:
 # Cleanse data
 clean_data = [[cell.strip().replace('\n', ' ') for cell in row] for row in data]
 
-# Reorder columns in the cleaned data
-ordered_data = [[row[0], row[1], row[2]] for row in clean_data]
+# Write cleansed data to output file
+try:
+    with open(sys.argv[2], "w", newline='') as outfile:
+        writer = csv.writer(outfile)
+        writer.writerows(clean_data)
+except Exception as e:
+    print(f"Error writing to file: {e}")
+    sys.exit(1)
 
-# Write ordered data to output file
-with open("after.csv", "w", newline='') as outfile:
-    writer = csv.writer(outfile)
-    writer.writerow(["first", "last", "house"])
-    writer.writerows(ordered_data)
+print(f"CSV file has been cleansed and saved as {sys.argv[2]}")
 sys.exit(0)
-
-
-
