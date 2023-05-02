@@ -25,13 +25,5 @@ def convert(s):
     if end_meridiem == "PM" and end_hour != 12:
         end_hour += 12
     if end_hour < start_hour or (end_hour == start_hour and end_minute < start_minute):
-        end_hour += 24
-
-    # Calculate the total number of minutes between the start and end times
-    total_minutes = (end_hour - start_hour) * 60 + (end_minute - start_minute)
-
-    # Calculate the hours and minutes from the total number of minutes
-    hours, minutes = divmod(total_minutes, 60)
-
-    # Format the output string
-    return f"{start_hour:02d}:{start_minute:02d} to {start_hour+hours:02d}:{minutes:02d}"
+        end_hour += 12 if end_hour < 12 else 24
+    return f"{start_hour:02d}:{start_minute:02d} to {end_hour:02d}:{end_minute:02d}"
