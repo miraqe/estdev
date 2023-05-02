@@ -1,22 +1,36 @@
-import re
 import sys
+import re
 
 def main():
-    print(parse(input("HTML: ")))
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python watch.py <url>")
 
-def parse(html):
-    # Search for the iframe tag
-    iframe_search = re.search(r'<iframe.*?</iframe>', html, re.DOTALL)
-    if iframe_search:
-        # Extract the iframe tag
-        iframe = iframe_search.group()
+    url = sys.argv[1]
+    res = extract_youtube_url(url)
 
-        # Search for the YouTube link in the iframe tag
-        youtube_search = re.search(r'src=["\'](?P<link>https?://youtube\.com/embed/(?P<id>[^/]+))', iframe)
-        if youtube_search:
-            # Extract the YouTube link and ID
-            link = youtube_search.group('link')
-            return link
+    if res is not None:
+        print(res)
+
+def extract_youtube_url(url):
+    pattern = r'<iframe.+?src="(.+?)"'
+    match = re.search(pattern, url)
+
+    if match is not None:
+        iframe_src = match.group(1)
+        pattern = r'youtube\..+?/embed/(.+?)(\?|")'
+        match = re.search(pattern, iframe_src)
+
+        if match is not None:
+            video_id = match.group(1)
+            return f"https://youtube.com/watch?v={video_id}"
+
+        pattern = r'youtube\.com/watch\?v=(.+?)(\&|")'
+        match = re.search(pattern, iframe_src)
+
+        if match is not None:
+            video_id = match.group(1)
+            return f"https://youtube.com/watch?v={video_id}"
+
     return None
 
 if __name__ == "__main__":
