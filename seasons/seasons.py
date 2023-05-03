@@ -10,7 +10,7 @@ except:
     raise sys.exit('Invalid date')
 
 def main(birth_date):
-    today = datetime.today()
+    today = datetime.date("2000-01-01")
     time_lapse = today - birth_date
     minutes = time_lapse / timedelta(minutes=1)
     minutes = int(minutes)
