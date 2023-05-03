@@ -1,12 +1,17 @@
-from datetime import datetime
+
 from seasons import check_birthday
 
-def test_check_birthday():
-    assert check_birthday(datetime(1999, 1, 1)) == "Five hundred twenty-five thousand, six hundred minutes"
-    assert check_birthday(datetime(2001, 1, 1)) == "One million, fifty-one thousand, two hundred minutes"
-    assert check_birthday(datetime(1995, 1, 1)) == "Two million, six hundred twenty-nine thousand, four hundred forty minutes"
-    assert check_birthday(datetime(1998, 6, 20)) == "Eight hundred six thousand, four hundred minutes"
-    assert check_birthday("February 6th, 1998") == None
 
-if __name__ == "__main__":
-    test_check_birthday()
+def main():
+    test_1()
+    test_2()
+
+def test_1():
+    assert check_birthday(2003, 5,17) == "Ten million, one hundred fourteen thousand, five hundred sixty minutes"
+    assert check_birthday(2000, 2,1) == "Eleven million, eight hundred forty-four thousand minutes"
+
+def test_2():
+    assert check_birthday(23 , 1, 2000) == "Invalid Date"
+
+if _name_ == "__main__":
+    main()
