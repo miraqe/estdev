@@ -8,9 +8,9 @@ def main():
     except:
         raise sys.exit('Invalid date')
     p = inflect.engine()
-    
+
     check_birthday(birth_date)
-    time_lapse = today - birth_date
+
     minutes = time_lapse / timedelta(minutes=1)
     minutes = int(minutes)
     output = p.number_to_words(minutes, andword="")
