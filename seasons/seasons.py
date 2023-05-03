@@ -1,65 +1,51 @@
-from datetime import date
-import inflect
 import sys
+from datetime import date, datetime
+import inflect
 
-def minutes_since_birth(birthday):
+def calculate_age_in_minutes(birthdate):
     today = date.today()
-    days_since_birth = (today - birthday).days
-    minutes_since_birth = days_since_birth * 24 * 60
-    leap_years = count_leap_years(birthday, today)
-    minutes_since_birth += leap_years * 24 * 60
-    return round(minutes_since_birth)
+    age_in_years = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+    leap_years = count_leap_years(birthdate.year, today.year)
+    days = (today - birthdate).days
+    total_minutes = (age_in_years * 365 * 24 * 60) + (leap_years * 24 * 60) + (days * 24 * 60)
+    return total_minutes
 
-def count_leap_years(start_date, end_date):
-    leap_years = 0
-    for year in range(start_date.year, end_date.year+1):
-        if is_leap_year(year):
-            if year == start_date.year:
-                if start_date.month < 3:
-                    leap_years += 1
-            elif year == end_date.year:
-                if end_date.month >= 3:
-                    leap_years += 1
-            else:
-                leap_years += 1
-    return leap_years
+def count_leap_years(start_year, end_year):
+    count = 0
+    for year in range(start_year, end_year):
+        if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
+            count += 1
+    return count
 
-def is_leap_year(year):
-    if year % 4 != 0:
-        return False
-    elif year % 100 != 0:
-        return True
-    elif year % 400 != 0:
-        return False
-    else:
-        return True
-
-def format_minutes(minutes):
+def sing_minutes(minutes):
     p = inflect.engine()
-    words = []
-    millions = minutes // (10**6)
-    if millions > 0:
-        words.append(p.number_to_words(millions))
-        words.append('million')
-        minutes -= millions * 10**6
-    thousands = minutes // 1000
-    if thousands > 0:
-        words.append(p.number_to_words(thousands))
-        words.append('thousand')
-        minutes -= thousands * 1000
+    years, minutes = divmod(minutes, 365 * 24 * 60)
+    days, minutes = divmod(minutes, 24 * 60)
+    hours, minutes = divmod(minutes, 60)
+    result = []
+    if years > 0:
+        result.append(p.number_to_words(years) + " year" + ("s" if years > 1 else ""))
+    if days > 0:
+        result.append(p.number_to_words(days) + " day" + ("s" if days > 1 else ""))
+    if hours > 0:
+        result.append(p.number_to_words(hours) + " hour" + ("s" if hours > 1 else ""))
     if minutes > 0:
-        words.append(p.number_to_words(minutes))
-    words.append('minutes')
-    return ' '.join(words)
+        result.append(p.number_to_words(minutes) + " minute" + ("s" if minutes > 1 else ""))
+    return " ".join(result)
 
 def main():
     try:
-        input_date = input('Enter your birthdate (YYYY-MM-DD): ')
-        birthday = date.fromisoformat(input_date)
+        birthdate_str = input("Please enter your date of birth in YYYY-MM-DD format: ")
+        birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
     except ValueError:
-        sys.exit()
-    minutes = minutes_since_birth(birthday)
-    print(format_minutes(minutes))
+        print("Invalid date format. Please enter your birthdate in YYYY-MM-DD format.")
+        sys.exit(1)
 
-if __name__ == '__main__':
+    age_in_minutes = calculate_age_in_minutes(birthdate)
+    if age_in_minutes < 0:
+        raise ValueError("Minus %s" % sing_minutes(-age_in_minutes))
+    else:
+        print(sing_minutes(age_in_minutes))
+
+if __name__ == "__main__":
     main()
