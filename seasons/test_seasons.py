@@ -1,38 +1,23 @@
-import sys
-import datetime
+from seasons import *
 
-# prompt user for birthdate
-birthdate = input("What is your birthdate? (YYYY-MM-DD)\n")
+def test_calculate_age_in_minutes():
+    assert calculate_age_in_minutes(date(2022, 5, 3)) == 0
+    assert calculate_age_in_minutes(date(2021, 5, 3)) == 525600
+    assert calculate_age_in_minutes(date(2020, 5, 3)) == 1051200
 
-try:
-    # convert birthdate string to datetime object
-    birthdate_obj = datetime.datetime.strptime(birthdate, "%Y-%m-%d")
+def test_main(monkeypatch):
+    user_input = '2020-05-03'
+    monkeypatch.setattr('builtins.input', lambda x: user_input)
+    assert main() == "You are one million, fifty-one thousand, two hundred minutes old."
 
-    # calculate number of minutes between birthdate and current datetime
-    now = datetime.datetime.now()
-    diff = now - birthdate_obj
-    minutes = int(diff.total_seconds() / 60)
+    user_input = '2021-05-03'
+    monkeypatch.setattr('builtins.input', lambda x: user_input)
+    assert main() == "You are five hundred twenty-five thousand, six hundred minutes old."
 
-    # print number of minutes in a song
-    if minutes == 525600:
-        print("Five hundred twenty-five thousand, six hundred minutes")
-    elif minutes == 1051200:
-        print("One million, fifty-one thousand, two hundred minutes")
-    elif minutes == 229732440:
-        print("Two hundred twenty-nine million, seven hundred thirty-two thousand, four hundred forty minutes")
-    elif minutes == 37696320:
-        print("Thirty-seven million, six hundred ninety-six thousand, three hundred twenty minutes")
-    elif minutes == 48686400:
-        print("Forty-eight million, six hundred eighty-six thousand, four hundred minutes")
-    elif minutes == 48683400:
-        print("Forty-eight million, six hundred eighty-three thousand, four hundred minutes")
-    elif minutes == 48902400:
-        print("Forty-eight million, nine hundred two thousand, four hundred minutes")
-    elif minutes == 0:
-        print("Happy Birthday!")
-    else:
-        print("Sorry, I don't know how many minutes that is in a song.")
+    user_input = '1990-02-30'
+    monkeypatch.setattr('builtins.input', lambda x: user_input)
+    assert main() == "Invalid date format. Please enter in YYYY-MM-DD format."
 
-except ValueError:
-    # exit program if birthdate is not in correct format
-    sys.exit()
+    user_input = '2023-05-03'
+    monkeypatch.setattr('builtins.input', lambda x: user_input)
+    assert main() == "You are zero minutes old."
