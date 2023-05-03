@@ -1,17 +1,25 @@
 from datetime import date, timedelta
-import inflect
+import re
 import sys
 
 p = inflect.engine()
 
 
 def main():
-    birthday = input("Date of Birth: ")
-    minutes = sub_date(birthday)
-    print(convert_totext(minutes))
+    birth_date = input("Date of Birth: ")
+    try:
+        year, month, day = check_birthday(birthdate)
+    except:
+         sys.exit("Invalid Date")
+        date_of_birth = date(int(year), int(month), int(day))
+    date_of_today = date.today()
+    diff = date_of_today - date_of_birth
+    total_minutes = diff.days * 24 *60
+    print(total_minutes)
 
-def sub_date(birth):
-    #take input date
+
+def check_birthday(birth_date):
+    if re.search
         try:
             b = date.fromisoformat(birth)
         except ValueError:
