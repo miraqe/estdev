@@ -1,20 +1,20 @@
-from datetime import date, datetime
+from datetime import date
+import inflect
+import re
 
-import sys
+p = inflect.engine()
 
 def main():
-    try:
-        print(convert_date(get_birthday()))
-    except ValueError:
-        sys.exit(1)
+    days_between = date.today() - check_date()
+    print (f"{p.number_to_words(days_between.days *24 * 60)}, minutes")
 
 def check_birthday():
-    return date.fromisoformat(input("Date of Birth?"))
-
-def convert_date(birthday):
-    time_passed = date.today() - birthday
-    delta = int(timedelta.total_seconds(time_passed) / 60)
-    return(f"{p.number_to_words(delta, andword='')} minutes").capitalize()
+    while True:
+        birth_date = input("Enter birthdate: ").strip()
+        if re.search(r"(\d{4})-([0-1]\d)-([0-3]\d)$", birth_date):
+            return date.fromisoformat(birth_date)
+        else:
+            print("Invalid Date")
 
 if _name_ == "__main__":
     main()
