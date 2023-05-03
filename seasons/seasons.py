@@ -3,7 +3,7 @@ import sys
 from datetime import timedelta
 import inflect
 
-bday = input("Date of Birth: ")
+birthday = input("Date of Birth: ")
 p=inflect.engine()
 
 def main():
