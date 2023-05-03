@@ -1,21 +1,18 @@
 
-from datetime import date
-from seasons import calculate_age_in_minutes, sing_minutes
+from seasons import check_birthday
 
-def test_calculate_age_in_minutes():
-    birthdate = date(2000, 1, 1)
-    assert calculate_age_in_minutes(birthdate) == 525600
+def main():
+    test_birth_date()
 
-    birthdate = date(1998, 1, 1)
-    assert calculate_age_in_minutes(birthdate) == 1051200
+def test_check_birthday():
+    assert check_birthday("1998-06-02") == ("1998", "06", "02")
 
-    birthdate = date(2000, 2, 29)
-    assert calculate_age_in_minutes(birthdate) == 525600
+    assert check_birthday("1998-01-01") == ("1998", "01", "01")
+    assert check_birthday("2000, 2, 29") == None
+    assert check_birthday("August, 6, 20") == None
 
-def test_sing_minutes():
-    assert sing_minutes(525600) == "one year"
-    assert sing_minutes(1051200) == "two years"
-    assert sing_minutes(525600 * 2 + 1440) == "two years one day one minute"
-    assert sing_minutes(60) == "one minute"
-    assert sing_minutes(120) == "two minutes"
-    assert sing_minutes(1440) == "one day
+
+
+
+if _name_ == "__main__":
+    main()
