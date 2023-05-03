@@ -11,7 +11,7 @@ def main():
     today = datetime.strptime("2000-01-01", "%Y-%m-%d")
     check_birthday(birth_date)
     if birth_date > today:
-        raise sys.exit('Birth date is after today')
+        raise sys.exit
     time_lapse = today - birth_date
     minutes = time_lapse / timedelta(minutes=1)
     minutes = int(minutes)
