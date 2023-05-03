@@ -1,32 +1,40 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 import inflect
 import sys
+import re
+
+p = inflect.engine()
+
+class Time:
+    def __init__(self, target_date):
+        self.target_date  = target_date
+
+    def __str__(self):
+        # prints out the output at the end
+
+    # operator overload
+    def __sub__(self, other):
+        # perform the subtraction and return the result
+
+    @staticmethod
+    def validate_date(target_date):
+        # use regex to validate the proper format
+        # return boolean (true if the match is found, false otherwise)
+
+    @classmethod
+    def get(cls):
+        # prompt the user for input
+        # validate the input by calling the static method validate_date and pass the user's input
+        # if valid, pass in that user input the cls, otherwise exit using sys.exit() with an error message
+        # Remember datetime.strptime allows you to turn a string into a DateTime object to make it easier for math operations
 
 def main():
-    try:
-        birth_date = datetime.strptime(input("Date of birth: "), '%Y-%m-%d')
-    except ValueError:
-        sys.exit('Invalid date format. Please enter a date in the format YYYY-MM-DD')
-    except:
-        sys.exit('Invalid date')
+    then = Time.get()
 
-    check_birthday(birth_date)
-    p = inflect.engine()
-    today = datetime.strptime("2000-01-01", "%Y-%m-%d")
-    time_lapse = today - birth_date
-    minutes = time_lapse / timedelta(minutes=1)
-    minutes = int(minutes)
-    output = p.number_to_words(minutes, andword="")
-    output = output.capitalize() + " minutes"
-    return output
+    # gets the current date so no need to ask the user
+    now = Time(date.today())
+    print(now - then)
 
-def check_birthday(birth_date):
-    if birth_date > datetime.now():
-        raise ValueError('Birth date is in the future')
-    elif birth_date.year < 1900:
-        raise ValueError('Birth year is before 1900')
-    else:
-        return True
+if _name_ == "__main__":
+    main()
 
-if __name__ == "__main__":
-    print(main())
