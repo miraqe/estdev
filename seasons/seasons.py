@@ -8,7 +8,7 @@ def main():
     except:
         raise sys.exit('Invalid date')
     p = inflect.engine()
-    today = datetime.strptime("2000-01-01", "%Y-%m-%d")
+    today = datetime.strptime(TODAY, "%Y-%m-%d")
     check_birthday(birth_date)
     time_lapse = today - birth_date
     minutes = time_lapse / timedelta(minutes=1)
