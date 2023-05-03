@@ -93,4 +93,7 @@ def test_withdraw():
     except ValueError:
         pass
     else:
-        assert
+        assert False, "Expected ValueError"
+
+    # Add an assertion to complete the function
+    assert jar.size == 1
