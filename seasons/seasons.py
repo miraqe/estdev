@@ -1,33 +1,21 @@
-from datetime import date, timedelta
-import inflect
+from datetime import date
 import sys
+from datetime import timedelta
+import inflect
 
-p = inflect.engine()
-
+bday = input("Date of Birth: ")
+p=inflect.engine()
 
 def main():
-    birthday = input("Date of Birth: ")
-    minutes = sub_date(birthday)
-    print(convert_totext(minutes))
+    try:
+        x,y,z= bday.split("-")
+        birth=date(int(x),int(y),int(z))
+    except:
+        sys.exit("Invalid date")
 
-def sub_date(birth):
-    #take input date
-        try:
-            b = date.fromisoformat(birth)
-        except ValueError:
-            sys.exit("Invalid date type")
-        else:
-            #take current date
-            today = date.today()
-            #substract one from another
-            sub = today - b
-            total = sub.total_seconds() / 60
+    dif=date.today()-birth
+    letters=p.number_to_words(int(dif.total_seconds()/60), andword="")
+    print(f'{letters.capitalize()} minutes')
 
-        return round(total)
-
-def convert_totext(num):
-    return f"{p.number_to_words(num, andword='')} minutes"
-
-
-if _name_ == "__main__":
+if __name__=="__main__":
     main()
