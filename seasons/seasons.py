@@ -1,40 +1,52 @@
+from datetime import date
+import inflect
 import sys
-import datetime
 
-def calculate_minutes(date1, date2):
-    """
-    Calculates the number of minutes between two dates
-    """
-    diff = date2 - date1
-    minutes = int(round(diff.total_seconds() / 60))
-    return minutes
 
-def format_number(num):
+def get_birthdate():
     """
-    Formats a number with commas and returns it as a string
+    Prompt the user for their birthdate and return a date object.
+    Exit if the input is not in YYYY-MM-DD format.
     """
-    return "{:,}".format(num)
+    while True:
+        try:
+            birthdate = input("Enter your birthdate (YYYY-MM-DD): ")
+            year, month, day = map(int, birthdate.split("-"))
+            return date(year, month, day)
+        except ValueError:
+            print("Invalid date format. Please try again.")
+            continue
+        except KeyboardInterrupt:
+            sys.exit()
+
+
+def minutes_since_birth(birthdate):
+    """
+    Return the number of minutes since the given birthdate.
+    """
+    now = date.today()
+    delta = now - birthdate
+    total_minutes = (delta.days * 24 * 60) + (delta.seconds // 60)
+    return total_minutes
+
 
 def main():
-    # get current date
-    current_date = datetime.date(2000, 1, 1)
+    p = inflect.engine()
 
-    # get input date from user
-    input_date_str = input("Enter a date in the format YYYY-MM-DD: ")
-    try:
-        input_date = datetime.datetime.strptime(input_date_str, "%Y-%m-%d").date()
-    except ValueError:
-        print("Invalid date format. Please enter a date in the format YYYY-MM-DD.")
-        sys.exit(1)
+    birthdate = get_birthdate()
+    minutes = minutes_since_birth(birthdate)
 
-    # calculate the number of minutes between the two dates
-    minutes = calculate_minutes(input_date, current_date)
+    if minutes < 525600:
+        print("Less than a year old!")
+    elif minutes == 525600:
+        print("Five hundred twenty-five thousand, six hundred minutes")
+    else:
+        years = minutes // 525600
+        minutes_remaining = minutes % 525600
+        minute_str = p.number_to_words(round(minutes_remaining, -2))
+        year_str = p.number_to_words(years) if years > 1 else "one"
+        print(f"{year_str} million, {minute_str} minutes")
 
-    # format the number of minutes with commas
-    formatted_minutes = format_number(minutes)
-
-    # print the result
-    print(formatted_minutes + " minutes")
 
 if __name__ == "__main__":
     main()
