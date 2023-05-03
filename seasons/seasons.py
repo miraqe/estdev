@@ -1,22 +1,36 @@
-from datetime import date, datetime, timedelta
-import inflect
+from datetime import date
 import sys
+import re
+# pip imported library to convert numbers into word format
+from num2words import num2words
 
-p = inflect.engine()
 
-try:
-    birth_date = datetime.strptime(input("Date of birth: "), '%Y-%m-%d')
-except:
-    raise sys.exit('Invalid date')
+def main():
+    print(convert(input("Date of Birth: ")))
 
-def main(birth_date):
-    today = datetime.date("2000-01-01")
-    time_lapse = today - birth_date
-    minutes = time_lapse / timedelta(minutes=1)
-    minutes = int(minutes)
-    output = p.number_to_words(minutes)
-    print(output.capitalize(), "minutes")
+
+def convert(dob):
+    # Validates user input
+    if re.search(r'^([1-2][0-9][0-9][0-9])-([0-1][0-9])-([0-3][0-9])$', dob):
+        today = date.today()
+        try:
+            # Validate date format
+            input_date = date.fromisoformat(dob)
+        except ValueError:
+            sys.exit("Invalid Date")
+    # Calulations
+    minus = today - input_date
+    calculation = minus.days * 24 * 60
+    word_form = num2words(calculation)
+
+    # removes the word 'and'
+    final = re.sub(r' and', '', word_form)
+
+    return f'{final.capitalize()} minutes'
+
+else:
+    sys.exit("Invalid Date")
 
 
 if __name__ == "__main__":
-    main(birth_date)
+    main()
