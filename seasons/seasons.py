@@ -1,26 +1,28 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 import inflect
 import sys
 
 def main():
     try:
         birth_date = datetime.strptime(input("Date of birth: "), '%Y-%m-%d')
-    except ValueError:
-        sys.exit('Invalid date')
+    except:
+        raise sys.exit('Invalid date')
     p = inflect.engine()
     today = datetime.strptime("2000-01-01", "%Y-%m-%d")
     check_birthday(birth_date)
-    if birth_date > today:
-        sys.exit()
     time_lapse = today - birth_date
-    minutes = int(time_lapse.total_seconds() // 60)
+    minutes = time_lapse / timedelta(minutes=1)
+    minutes = int(minutes)
     output = p.number_to_words(minutes, andword="")
     output = output.capitalize() + " minutes"
     print(output)
 
 def check_birthday(birth_date):
-    if birth_date > datetime.now():
-        sys.exit('Invalid date')
+    try:
+        birth_date = birth_date
+    except:
+        raise sys.exit(ValueError)
+    return True
 
 if __name__ == "__main__":
     main()
