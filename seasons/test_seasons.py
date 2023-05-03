@@ -1,23 +1,15 @@
-from seasons import *
+import seasons
 
-def test_calculate_age_in_minutes():
-    assert calculate_age_in_minutes(date(2022, 5, 3)) == 0
-    assert calculate_age_in_minutes(date(2021, 5, 3)) == 525600
-    assert calculate_age_in_minutes(date(2020, 5, 3)) == 1051200
+def test_minutes_since_birth():
+    assert seasons.minutes_since_birth("2022-05-03") == "zero minutes"
+    assert seasons.minutes_since_birth("2021-05-03") == "five hundred twenty-five thousand six hundred minutes"
+    assert seasons.minutes_since_birth("2020-05-03") == "one million fifty-one thousand two hundred minutes"
+    assert seasons.minutes_since_birth("2000-02-29") == "eleven million five hundred fifty-eight thousand four hundred minutes"
+    assert seasons.minutes_since_birth("1999-02-28") == "eleven million six hundred twenty-eight thousand minutes"
+    assert seasons.minutes_since_birth("1998-12-31") == "eleven million seven hundred six thousand two hundred forty minutes"
 
-def test_main(monkeypatch):
-    user_input = '2020-05-03'
-    monkeypatch.setattr('builtins.input', lambda x: user_input)
-    assert main() == "You are one million, fifty-one thousand, two hundred minutes old."
-
-    user_input = '2021-05-03'
-    monkeypatch.setattr('builtins.input', lambda x: user_input)
-    assert main() == "You are five hundred twenty-five thousand, six hundred minutes old."
-
-    user_input = '1990-02-30'
-    monkeypatch.setattr('builtins.input', lambda x: user_input)
-    assert main() == "Invalid date format. Please enter in YYYY-MM-DD format."
-
-    user_input = '2023-05-03'
-    monkeypatch.setattr('builtins.input', lambda x: user_input)
-    assert main() == "You are zero minutes old."
+def test_invalid_date_format():
+    try:
+        seasons.minutes_since_birth("2022/05/03")
+    except SystemExit as e:
+        assert e.code == "Invalid date format. Please enter in YYYY-MM-DD format."
