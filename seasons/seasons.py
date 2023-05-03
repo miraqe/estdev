@@ -10,6 +10,8 @@ def main():
     p = inflect.engine()
     today = datetime.strptime("2000-01-01", "%Y-%m-%d")
     check_birthday(birth_date)
+    if birth_date > today:
+        raise sys.exit('Birth date is after today')
     time_lapse = today - birth_date
     minutes = time_lapse / timedelta(minutes=1)
     minutes = int(minutes)
@@ -18,10 +20,6 @@ def main():
     print(output)
 
 def check_birthday(birth_date):
-    try:
-        birth_date = birth_date
-    except:
-        raise sys.exit('Invalid date')
     return True
 
 if __name__ == "__main__":
