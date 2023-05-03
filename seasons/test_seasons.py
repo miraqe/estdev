@@ -1,47 +1,27 @@
-from datetime import datetime
-import seasons
 import pytest
+import seasons
 
 
-def test_minutes_one_year_ago():
-    # Set today's date to 2001-01-01
-    seasons.today = datetime(2001, 1, 1).date()
-    # Calculate the date one year ago
-    birth_date = datetime(2000, 1, 1).date()
-    # Calculate the expected number of minutes
-    expected_minutes = 525600
-    # Convert expected minutes to words
-    p = inflect.engine()
-    expected_words = p.number_to_words(expected_minutes)
-    # Call the main function and capture its output
-    result = seasons.calculate_age(birth_date)
-    # Convert the result to words
-    result_words = p.number_to_words(result)
-    # Check that the result matches the expected output
-    assert result_words == expected_words
+def test_one_year_ago():
+    assert seasons.calculate_age_in_minutes("1999-01-01") == "525600"
 
 
-def test_minutes_two_years_ago():
-    # Set today's date to 2001-01-01
-    seasons.today = datetime(2001, 1, 1).date()
-    # Calculate the date two years ago
-    birth_date = datetime(1999, 1, 1).date()
-    # Calculate the expected number of minutes
-    expected_minutes = 1051200
-    # Convert expected minutes to words
-    p = inflect.engine()
-    expected_words = p.number_to_words(expected_minutes)
-    # Call the main function and capture its output
-    result = seasons.calculate_age(birth_date)
-    # Convert the result to words
-    result_words = p.number_to_words(result)
-    # Check that the result matches the expected output
-    assert result_words == expected_words
+def test_two_years_ago():
+    assert seasons.calculate_age_in_minutes("1998-01-01") == "1051200"
 
 
-def test_invalid_date_format():
-    # Set today's date to 2001-01-01
-    seasons.today = datetime(2001, 1, 1).date()
-    # Try to calculate age with an invalid date format
+def test_today():
+    assert seasons.calculate_age_in_minutes("2000-01-01") == "0"
+
+
+def test_invalid_date():
     with pytest.raises(SystemExit):
-        seasons.calculate_age("not a valid date")
+        seasons.calculate_age_in_minutes("invalid-date-format")
+
+
+def test_word_form():
+    assert seasons.calculate_age_in_minutes("1999-01-01") == "five hundred twenty-five thousand six hundred"
+
+
+if __name__ == "__main__":
+    pytest.main()
