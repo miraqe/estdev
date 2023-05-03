@@ -89,4 +89,8 @@ def test_withdraw():
 
     # Test withdrawing non-integer number of cookies
     try:
-        jar
+        jar.withdraw("two")
+    except ValueError:
+        pass
+    else:
+        assert
