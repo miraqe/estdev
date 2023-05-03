@@ -1,6 +1,6 @@
 import seasons
 
-def test_minutes_since_birth():
+def main():
 
     assert seasons.minutes_since_birth("1999-02-28") == "Eleven million, six hundred twenty-eight thousand minutes"
     assert seasons.minutes_since_birth("1998-12-31") == "Eleven million, seven hundred six thousand, two hundred forty minutes"
