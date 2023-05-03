@@ -1,32 +1,32 @@
 import re
 import sys
 
-# function to convert time from 12 hour to 24 hour format
-def convert_time(time):
-    if time.endswith("AM"):
-        if time.startswith("12"):
-            return "00" + time[2:-2]
-        else:
-            return time[:-2]
-    else:
-        if time.startswith("12"):
-            return time[:-2]
-        else:
-            return str(int(time[:2]) + 12) + time[2:-2]
+def convert_time(input_time):
+    # Check if input time is valid
+    pattern = r"((1[0-2]|0?[1-9]):([0-5]\d)\s*(AM|PM))|((2[0-3]|1\d|0?\d):([0-5]\d)\s*(AM|PM))"
+    match = re.match(pattern, input_time)
+    if not match:
+        raise ValueError("Invalid time format")
 
-if __name__ == "__main__":
-    # prompt the user for input
-    time_input = input("Hours: ")
-    try:
-        # split the input by " to " to get the start and end times
-        start, end = re.split(" to ", time_input)
+    # Convert input time to military time
+    time, period = input_time[:-3], input_time[-2:]
+    hour, minute = time.split(":")
+    hour = int(hour)
+    minute = int(minute)
+    if period == "PM" and hour != 12:
+        hour += 12
+    elif period == "AM" and hour == 12:
+        hour = 0
 
-        # convert start and end times to 24 hour format
-        start_24h = convert_time(start)
-        end_24h = convert_time(end)
+    return f"{hour:02d}:{minute:02d}"
 
-        # print the start and end times in the 24 hour format
-        print(start_24h + " to " + end_24h)
-    except ValueError:
-        # if the input is invalid, raise a ValueError
-        raise ValueError
+
+# Get user input
+try:
+    time_range = input("Enter a time range: ")
+    start, end = time_range.split(" to ")
+    start = convert_time(start)
+    end = convert_time(end)
+    print(f"{start} to {end}")
+except ValueError as e:
+    print(e, file=sys.stderr)
