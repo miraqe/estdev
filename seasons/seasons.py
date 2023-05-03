@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 import re
 import sys
+import inflect
 
 p = inflect.engine()
 
@@ -25,5 +26,5 @@ def check_birthday(birth_date):
         return year, month,day
 
 
-if _name_ == "__main__":
+if __name__ == "__main__":
     main()

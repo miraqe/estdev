@@ -14,5 +14,5 @@ def test_check_birthday():
 
 
 
-if _name_ == "__main__":
+if __name__ == "__main__":
     main()
