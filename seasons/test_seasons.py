@@ -1,32 +1,47 @@
-import season
+from datetime import datetime
+import seasons
+import pytest
 
-def test(season, date, minutes):
-    result = subprocess.run(
-        [sys.executable, "seasons.py", date], stdout=subprocess.PIPE)
-    output = result.stdout.decode().strip()
-    if output != minutes:
-        return f"{season}: expected {minutes}, but got {output}"
-    return None
 
-# set TODAY to January 1, 2000
-TODAY = "2000-01-01"
+def test_minutes_one_year_ago():
+    # Set today's date to 2001-01-01
+    seasons.today = datetime(2001, 1, 1).date()
+    # Calculate the date one year ago
+    birth_date = datetime(2000, 1, 1).date()
+    # Calculate the expected number of minutes
+    expected_minutes = 525600
+    # Convert expected minutes to words
+    p = inflect.engine()
+    expected_words = p.number_to_words(expected_minutes)
+    # Call the main function and capture its output
+    result = seasons.calculate_age(birth_date)
+    # Convert the result to words
+    result_words = p.number_to_words(result)
+    # Check that the result matches the expected output
+    assert result_words == expected_words
 
-# run tests
-tests = [
-    ["winter", "1999-01-01", "Five hundred twenty-five thousand, six hundred minutes"],
-    ["spring", "2001-01-01", "One million, fifty-one thousand, two hundred minutes"],
-    ["summer", "1995-01-01", "Two million, six hundred twenty-nine thousand, four hundred forty minutes"],
-    ["fall", "1982-06-01", "Six million, ninety-two thousand, six hundred forty minutes"],
-    ["none", "1998-06-20", "Eight hundred six thousand, four hundred minutes"]
-]
 
-failures = []
-for season, date, minutes in tests:
-    error = test(season, date, minutes)
-    if error:
-        failures.append(error)
+def test_minutes_two_years_ago():
+    # Set today's date to 2001-01-01
+    seasons.today = datetime(2001, 1, 1).date()
+    # Calculate the date two years ago
+    birth_date = datetime(1999, 1, 1).date()
+    # Calculate the expected number of minutes
+    expected_minutes = 1051200
+    # Convert expected minutes to words
+    p = inflect.engine()
+    expected_words = p.number_to_words(expected_minutes)
+    # Call the main function and capture its output
+    result = seasons.calculate_age(birth_date)
+    # Convert the result to words
+    result_words = p.number_to_words(result)
+    # Check that the result matches the expected output
+    assert result_words == expected_words
 
-if failures:
-    print("\n".join(failures))
-else:
-    print("All checks pass.")
+
+def test_invalid_date_format():
+    # Set today's date to 2001-01-01
+    seasons.today = datetime(2001, 1, 1).date()
+    # Try to calculate age with an invalid date format
+    with pytest.raises(SystemExit):
+        seasons.calculate_age("not a valid date")
