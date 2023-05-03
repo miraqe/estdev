@@ -1,32 +1,33 @@
 import re
-import sys
 
-def convert_time(input_time):
-    # Check if input time is valid
-    pattern = r"((1[0-2]|0?[1-9]):([0-5]\d)\s*(AM|PM))|((2[0-3]|1\d|0?\d):([0-5]\d)\s*(AM|PM))"
-    match = re.match(pattern, input_time)
+
+def main():
+    print(convert(input("Hours: ")))
+
+
+def convert(s):
+    pattern = r"(\d{1,2})(?::(\d{2}))? (AM|PM) to (\d{1,2})(?::(\d{2}))? (AM|PM)"
+    match = re.search(pattern, s)
     if not match:
-        raise ValueError("Invalid time format")
+        raise ValueError("Invalid input format")
+    start_hour = int(match.group(1))
+    start_minute = int(match.group(2) or "0")
+    start_meridiem = match.group(3)
+    end_hour = int(match.group(4))
+    end_minute = int(match.group(5) or "0")
+    end_meridiem = match.group(6)
+    if start_hour > 12 or start_minute >= 60 or end_hour > 12 or end_minute >= 60:
+        raise ValueError("Invalid time")
+    if start_meridiem == "PM" and start_hour != 12:
+        start_hour += 12
+    elif start_meridiem == "AM" and start_hour == 12:
+        start_hour = 0
+    if end_meridiem == "PM" and end_hour != 12:
+        end_hour += 12
+    elif end_meridiem == "AM" and end_hour == 12:
+        end_hour = 0
+    return f"{start_hour:02}:{start_minute:02} to {end_hour:02}:{end_minute:02}"
 
-    # Convert input time to military time
-    time, period = input_time[:-3], input_time[-2:]
-    hour, minute = time.split(":")
-    hour = int(hour)
-    minute = int(minute)
-    if period == "PM" and hour != 12:
-        hour += 12
-    elif period == "AM" and hour == 12:
-        hour = 0
 
-    return f"{hour:02d}:{minute:02d}"
-
-
-# Get user input
-try:
-    time_range = input("Enter a time range: ")
-    start, end = time_range.split(" to ")
-    start = convert_time(start)
-    end = convert_time(end)
-    print(f"{start} to {end}")
-except ValueError as e:
-    print(e, file=sys.stderr)
+if __name__ == "__main__":
+    main()
