@@ -2,71 +2,60 @@ import requests
 import json
 import random
 
-def main():
-    print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
+if __name__ == '__main__':
+    api_key = input("Please enter your OpenWeatherMap API key: ")
+
     while True:
-        user_input = input().lower()
-        if user_input == "calculation":
-            expression = input("What calculation would you like to perform?\n")
-            print(calculate(expression))
-        elif user_input == "dictionary":
-            word = input("Please enter a word:\n").lower()
+        print("Please choose an option:")
+        print("1. Dictionary")
+        print("2. Spell Check")
+        print("3. Weather")
+        print("4. Exit")
+        choice = input()
+
+        if choice == "1":
+            word = input("Please enter a word: ")
             print(dictionary(word))
-        elif user_input == "spell check":
-            sentence = input("Please enter a sentence:\n").lower()
+        elif choice == "2":
+            sentence = input("Please enter a sentence: ")
             print(spell_check(sentence))
-        elif user_input == "weather":
-            city = input("Please enter a city:\n").lower()
-            print(weather(city))
-        elif user_input == "exit":
-            print("Goodbye!")
+        elif choice == "3":
+            city = input("Please enter a city: ")
+            print(weather(city, api_key))
+        elif choice == "4":
             break
         else:
-            print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, dictionary, spell check and weather.")
-
-
-def calculate(expression):
-    try:
-        result = eval(expression)
-        return f"The result of {expression} is {result}"
-    except:
-        return "Invalid expression. Please try again."
+            print("Invalid choice. Please try again.")
 
 
 def dictionary(word):
-    url = f"https://api.dictionaryapi.dev/api/v2/entries/en_US/{word}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = json.loads(response.content)
-        definition = data[0]['meanings'][0]['definitions'][0]['definition']
+    d = enchant.Dict("en_US")
+    if d.check(word):
+        definition = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}").json()[0]['meanings'][0]['definitions'][0]['definition']
         return f"{word.capitalize()}: {definition}"
     else:
-        return "Word not found. Please try again."
-
-
+        return "The word does not exist in the English language."
 
 def spell_check(sentence):
-    print("Please enter a sentence: ")
-    sentence = input().lower()
-    words = sentence.split()
     d = enchant.Dict("en_US")
-    misspelled = []
-    for word in words:
-        if not d.check(word):
-            misspelled.append(word)
-    if not misspelled:
-        print("No spelling errors found!")
-    else:
-        print("The following words are misspelled:")
-        for word in misspelled:
-            print(word)
+    words = sentence.split()
+    for i in range(len(words)):
+        if not d.check(words[i]):
+            suggestions = d.suggest(words[i])
+            return f"Error at position {i}: {words[i]} (suggested replacements: {', '.join(suggestions)})"
+    return "No errors found."
 
-def weather(city):
-    url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric".format(city, API_key)
-    response = requests.get(url)
-    data = response.json()
-    temperature = data['main']['temp']
-    return "The current temperature in {} is {} degrees Celsius".format(city.title(), temperature)
+def weather(city, api_key):
+    weather_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"
+    response = requests.get(weather_url)
+    if response.status_code == 200:
+        data = response.json()
+        temp = data["main"]["temp"]
+        return f"The current temperature in {city.capitalize()} is {temp:.1f}°F."
+    elif response.status_code == 404:
+        return "City not found."
+    else:
+        return "Unable to retrieve weather information."
 
 
 def weather(city):
