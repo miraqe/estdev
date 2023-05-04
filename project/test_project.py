@@ -40,6 +40,6 @@ def test_temperature_conversion():
     assert temperature_conversion(32, 'fahrenheit', 'celsius') == 0.0
 
 def test_weather_forecast():
-    assert isinstance(weather_forecast('New York'), str)
-    assert isinstance(weather_forecast('Chicago'), str)
-    assert isinstance(weather_forecast('notacity'), type(None))
+    assert weather('New York'), str)
+    assert weather('Chicago'), str)
+    assert weather('notacity'), type(None))
