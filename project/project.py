@@ -1,6 +1,5 @@
 import requests
 import json
-import enchant
 import random
 
 def main():
