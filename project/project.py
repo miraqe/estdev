@@ -43,7 +43,7 @@ def dictionary(word):
         return f"Sorry, no definition found for {word}."
 
 
-def spell_check(sentence):
+def spell_check(word):
     spell = SpellChecker()
     words = sentence.split()
     checked = []
