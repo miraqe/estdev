@@ -1,26 +1,20 @@
 import random
 
-def calculate(expression):
+import re
+
+def calculate(expr):
+    # use regular expressions to check for valid input
+    if not re.match(r'^\d+(\s*[\+\-\*/]\s*\d+)*$', expr):
+        return 'Invalid expression. Please try again.'
+
     try:
-        result = eval(expression)
-        if isinstance(result, float):
-            return f"The result of {expression} is {result:.2f}"
-        else:
-            return f"The result of {expression} is {result}"
-    except SyntaxError as e:
-        if "invalid token" in str(e):
-            return "Invalid expression. Please try again."
-        else:
-            raise e
-    except ZeroDivisionError:
-        return "Cannot divide by zero. Please try again."
+        result = eval(expr)
+        return f'The result of {expr} is {result}'
     except:
-        return "An error occurred. Please try again."
+        return 'Invalid expression. Please try again.'
 
 
-
-
-def random_number_generator(start, end):
+def random_number(start, end):
     return f"Your random number between {start} and {end} is: {random.randint(start, end)}"
 
 def text_manipulation(text, operation):
