@@ -1,5 +1,5 @@
 import requests
-
+import enchant
 
 
 if __name__ == '__main__':
