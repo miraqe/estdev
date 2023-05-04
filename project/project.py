@@ -2,12 +2,13 @@ import random
 
 def calculate(expression):
     try:
+        # Check for consecutive + or - signs
+        if ("++" in expression) or ("--" in expression) or ("+-" in expression) or ("-+" in expression):
+            raise SyntaxError
+
         result = eval(expression)
         if isinstance(result, float):
-            if result.is_integer():
-                return f"The result of {expression} is {int(result)}"
-            else:
-                return f"The result of {expression} is {result:.2f}"
+            return f"The result of {expression} is {result:.2f}"
         else:
             return f"The result of {expression} is {result}"
     except SyntaxError:
@@ -16,6 +17,7 @@ def calculate(expression):
         return "Cannot divide by zero. Please try again."
     except:
         return "An error occurred. Please try again."
+
 
 
 def random_number(start, end):
