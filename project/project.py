@@ -37,12 +37,12 @@ def calculate(expression):
 
 def dictionary(word):
     word = word.lower()
-    url = f"https://www.dictionary.com/browse/{word.lower()}"
+    url = f"https://www.dictionary.com/browse/{word}"
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
         try:
-            definition = soup.find(class_='one-click-content css-nnyc96 e1q3nk1v1').get_text().strip()
+            definition = soup.find(class_='one-click-content').get_text().strip()
             tree_name = re.search(r"of the ([\w\s]+) family", definition).group(1)
             definition = definition.replace(tree_name, tree_name.capitalize())
             return f"{word.title()}: {definition.capitalize()}"
@@ -50,6 +50,7 @@ def dictionary(word):
             return f"Sorry, no definition found for {word}."
     else:
         return f"Sorry, could not get dictionary information for {word}."
+
 
 
 
