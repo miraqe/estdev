@@ -1,73 +1,45 @@
-import requests
-import json
+import project
 
-def main():
-    print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
-    while True:
-        user_input = input().lower()
-        if user_input == "calculation":
-            calculate()
-        elif user_input == "dictionary":
-            dictionary()
-        elif user_input == "spell check":
-            spell_check()
-        elif user_input == "weather":
-            weather()
-        elif user_input == "exit":
-            print("Goodbye!")
-            break
-        else:
-            print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, dictionary, spell check and weather.")
+def test_calculate():
+    assert project.calculate("1+1") == 2
 
-def calculate():
-    print("What calculation would you like to perform?")
-    expression = input()
-    try:
-        result = eval(expression)
-        print(f"The answer for {expression} is {result}")
-    except:
-        print("Invalid expression. Please try again.")
+def test_addition():
+    assert addition(2, 3) == 5
+    assert addition(-2, 3) == 1
+    assert addition(0, 0) == 0
 
-def dictionary():
-    print("Please enter a word: ")
-    word = input().lower()
-    url = f"https://api.dictionaryapi.dev/api/v2/entries/en_US/{word}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = json.loads(response.content)
-        definition = data[0]['meanings'][0]['definitions'][0]['definition']
-        print(f"{word.capitalize()}: {definition}")
-    else:
-        print("Word not found. Please try again.")
+def test_subtraction():
+    assert subtraction(5, 3) == 2
+    assert subtraction(3, 5) == -2
+    assert subtraction(0, 0) == 0
 
-def spell_check():
-    print("Please enter a sentence: ")
-    sentence = input().lower()
-    url = f"https://api.textgears.com/spelling?key=YOUR_API_KEY&text={sentence}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = json.loads(response.content)
-        errors = data['errors']
-        if len(errors) == 0:
-            print("No spelling errors found!")
-        else:
-            for error in errors:
-                print(f"Error at position {error['position']}: {error['bad']} (suggested replacements: {', '.join(error['better'])})")
-    else:
-        print("Something went wrong. Please try again later.")
+def test_multiplication():
+    assert multiplication(2, 3) == 6
+    assert multiplication(-2, 3) == -6
+    assert multiplication(0, 5) == 0
 
-def weather():
-    print("Please enter a city: ")
-    city = input().lower()
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY&units=metric"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = json.loads(response.content)
-        temperature = data['main']['temp']
-        description = data['weather'][0]['description']
-        print(f"The current temperature in {city.capitalize()} is {temperature}°C and the weather is {description}.")
-    else:
-        print("City not found. Please try again.")
+def test_division():
+    assert division(10, 5) == 2
+    assert division(-10, 5) == -2
+    assert division(0, 5) == 0
+    assert division(5, 0) == None
 
-if __name__ == "__main__":
-    main()
+def test_dictionary_lookup():
+    assert dictionary_lookup('python') == 'a high-level general-purpose programming language.'
+    assert dictionary_lookup('algorithm') == 'a process or set of rules to be followed in calculations or other problem-solving operations.'
+    assert dictionary_lookup('notaword') == None
+
+def test_spell_check():
+    assert spell_check('speling') == 'spelling'
+    assert spell_check('definately') == 'definitely'
+    assert spell_check('test') == None
+
+def test_temperature_conversion():
+    assert temperature_conversion(0, 'celsius', 'fahrenheit') == 32.0
+    assert temperature_conversion(100, 'celsius', 'fahrenheit') == 212.0
+    assert temperature_conversion(32, 'fahrenheit', 'celsius') == 0.0
+
+def test_weather_forecast():
+    assert isinstance(weather_forecast('New York'), str)
+    assert isinstance(weather_forecast('Chicago'), str)
+    assert isinstance(weather_forecast('notacity'), type(None))
