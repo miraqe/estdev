@@ -3,9 +3,17 @@ import random
 def calculate(expression):
     try:
         result = eval(expression)
-        return f"The result of {expression} is {result}"
-    except Exception as e:
+        if isinstance(result, float):
+            return f"The result of {expression} is {result:.2f}"
+        else:
+            return f"The result of {expression} is {result}"
+    except SyntaxError:
         return "Invalid expression. Please try again."
+    except ZeroDivisionError:
+        return "Cannot divide by zero. Please try again."
+    except:
+        return "An error occurred. Please try again."
+
 
 
 def random_number(start, end):
