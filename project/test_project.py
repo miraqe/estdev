@@ -41,7 +41,7 @@ def dictionary():
         print("Word not found. Please try again.")
 
 def spell_check():
-    print("Please enter a sentence:")
+    print("Please enter a sentence: ")
     sentence = input().lower()
     url = f"https://api.textgears.com/spelling?key=YOUR_API_KEY&text={sentence}"
     response = requests.get(url)
@@ -57,7 +57,7 @@ def spell_check():
         print("Something went wrong. Please try again later.")
 
 def weather():
-    print("Please enter a city:")
+    print("Please enter a city: ")
     city = input().lower()
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY&units=metric"
     response = requests.get(url)
