@@ -61,6 +61,12 @@ def spell_check(sentence):
         for word in misspelled:
             print(word)
 
+def weather(city):
+    url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric".format(city, API_key)
+    response = requests.get(url)
+    data = response.json()
+    temperature = data['main']['temp']
+    return "The current temperature in {} is {} degrees Celsius".format(city.title(), temperature)
 
 
 def weather(city):
