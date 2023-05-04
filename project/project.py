@@ -2,6 +2,7 @@ import requests
 from spellchecker import SpellChecker
 from bs4 import BeautifulSoup
 
+
 def main():
     print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
     while True:
