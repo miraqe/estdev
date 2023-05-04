@@ -2,6 +2,7 @@ import requests
 import json
 import random
 
+
 if __name__ == '__main__':
     api_key = input("Please enter your OpenWeatherMap API key: ")
 
@@ -28,6 +29,14 @@ if __name__ == '__main__':
             print("Invalid choice. Please try again.")
 
 
+def calculate(expression):
+    try:
+        result = eval(expression)
+        return f"The result of {expression} is {result}"
+    except:
+        return "Invalid expression. Please try again."
+
+
 def dictionary(word):
     d = enchant.Dict("en_US")
     if d.check(word):
@@ -35,6 +44,7 @@ def dictionary(word):
         return f"{word.capitalize()}: {definition}"
     else:
         return "The word does not exist in the English language."
+
 
 def spell_check(sentence):
     d = enchant.Dict("en_US")
@@ -44,6 +54,7 @@ def spell_check(sentence):
             suggestions = d.suggest(words[i])
             return f"Error at position {i}: {words[i]} (suggested replacements: {', '.join(suggestions)})"
     return "No errors found."
+
 
 def weather(city, api_key):
     weather_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"
@@ -56,16 +67,6 @@ def weather(city, api_key):
         return "City not found."
     else:
         return "Unable to retrieve weather information."
-
-
-def weather(city):
-    print("Please enter a city: ")
-    city = input().lower()
-    temperature = random.randint(-10, 40)
-    descriptions = ["sunny", "cloudy", "rainy", "snowy"]
-    description = random.choice(descriptions)
-    print(f"The current temperature in {city.capitalize()} is {temperature}°C and the weather is {description}.")
-
 
 
 if __name__ == "__main__":
