@@ -2,10 +2,11 @@ import random
 
 def calculate(expression):
     try:
-        result = eval(expression.replace("/","//"))
+        result = eval(expression)
         return f"The result of {expression} is {result}"
-    except:
+    except Exception as e:
         return "Invalid expression. Please try again."
+
 
 def random_number(start, end):
     return f"Your random number between {start} and {end} is: {random.randint(start, end)}"
