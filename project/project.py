@@ -36,12 +36,12 @@ def calculate(expression):
 
 
 def dictionary(word):
-    url = f"https://www.dictionaryapi.com/api/v3/references/collegiate/json/{word}?key=<your-API-key>"
+    url = f"https://www.dictionary.com/browse/{word}"
     response = requests.get(url)
     if response.status_code == 200:
-        data = response.json()
+        soup = BeautifulSoup(response.content, 'html.parser')
         try:
-            definition = data[0]['shortdef'][0]
+            definition = soup.find(class_='one-click-content css-nnyc96 e1q3nk1v1').get_text().strip()
             return f"{word.title()}: {definition}"
         except:
             return f"Sorry, no definition found for {word}."
