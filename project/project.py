@@ -14,7 +14,7 @@ def main():
             print(dictionary(word))
         elif user_input == "spell check":
             sentence = input("Please enter a sentence:\n").lower()
-            print(spell_check(sentence))
+            print(spell_check(word))
         elif user_input == "weather":
             city = input("Please enter a city:\n").lower()
             print(weather(city))
@@ -35,12 +35,13 @@ def calculate(expression):
 
 
 def dictionary(word):
-    d = enchant.Dict("en_US")
-    meaning = d.meaning(word)
-    if meaning:
-        return f"{word.title()}: {meaning[0]}"
+    spell = SpellChecker()
+    suggestions = spell.candidates(word)
+    if suggestions:
+        return f"{word.title()}: Did you mean '{spell.correction(word)}'?"
     else:
         return f"Sorry, no definition found for {word}."
+
 
 
 def spell_check(word):
