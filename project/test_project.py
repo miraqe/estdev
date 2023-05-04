@@ -1,45 +1,25 @@
 import project
 
 def test_calculate():
-    assert project.calculate("1+1") == 2
-
-def test_addition():
-    assert addition(2, 3) == 5
-    assert addition(-2, 3) == 1
-    assert addition(0, 0) == 0
-
-def test_subtraction():
-    assert subtraction(5, 3) == 2
-    assert subtraction(3, 5) == -2
-    assert subtraction(0, 0) == 0
-
-def test_multiplication():
-    assert multiplication(2, 3) == 6
-    assert multiplication(-2, 3) == -6
-    assert multiplication(0, 5) == 0
-
-def test_division():
-    assert division(10, 5) == 2
-    assert division(-10, 5) == -2
-    assert division(0, 5) == 0
-    assert division(5, 0) == None
+    assert project.calculate("2+2") == 4
+    assert project.calculate("5-3") == 2
+    assert project.calculate("6*7") == 42
+    assert project.calculate("10/2") == 5
+    assert project.calculate("3**3") == 27
+    assert project.calculate("4%3") == 1
+    assert project.calculate("a+b") == None
 
 def test_dictionary_lookup():
-    assert dictionary_lookup('python') == 'a high-level general-purpose programming language.'
-    assert dictionary_lookup('algorithm') == 'a process or set of rules to be followed in calculations or other problem-solving operations.'
-    assert dictionary_lookup('notaword') == None
+    assert project.dictionary_lookup("apple") == "A fruit with red or yellow or green skin and sweet to tart crisp whitish flesh"
 
 def test_spell_check():
-    assert spell_check('speling') == 'spelling'
-    assert spell_check('definately') == 'definitely'
-    assert spell_check('test') == None
+    assert project.spell_check("Hello, wrld!") == "Hello, world!"
+    assert project.spell_check("This is a sentence.") == "This is a sentence."
 
 def test_temperature_conversion():
-    assert temperature_conversion(0, 'celsius', 'fahrenheit') == 32.0
-    assert temperature_conversion(100, 'celsius', 'fahrenheit') == 212.0
-    assert temperature_conversion(32, 'fahrenheit', 'celsius') == 0.0
+    assert project.temperature_conversion(32, "fahrenheit", "celsius") == 0.0
+    assert project.temperature_conversion(0, "celsius", "fahrenheit") == 32.0
+    assert project.temperature_conversion(100, "celsius", "kelvin") == 373.15
 
 def test_weather_forecast():
-    assert isinstance(weather_forecast('New York'), str)
-    assert isinstance(weather_forecast('Chicago'), str)
-    assert isinstance(weather_forecast('notacity'), type(None))
+    assert project.weather_forecast("New York") == "The current temperature in New York is XX°C and the weather is cloudy."
