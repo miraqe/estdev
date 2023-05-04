@@ -2,21 +2,21 @@ import random
 
 def calculate(expression):
     try:
-        # Check for consecutive + or - signs
-        if ("++" in expression) or ("--" in expression) or ("+-" in expression) or ("-+" in expression):
-            raise SyntaxError
-
         result = eval(expression)
         if isinstance(result, float):
             return f"The result of {expression} is {result:.2f}"
         else:
             return f"The result of {expression} is {result}"
-    except SyntaxError:
-        return "Invalid expression. Please try again."
+    except SyntaxError as e:
+        if "invalid token" in str(e):
+            return "Invalid expression. Please try again."
+        else:
+            raise e
     except ZeroDivisionError:
         return "Cannot divide by zero. Please try again."
     except:
         return "An error occurred. Please try again."
+
 
 
 
