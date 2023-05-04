@@ -67,6 +67,7 @@ def spell_check(sentence):
 
 
 def weather(city):
+    city = city.lower()
     url = f"https://www.timeanddate.com/weather/{city.replace(' ', '-')}"
     response = requests.get(url)
     if response.status_code == 200:
