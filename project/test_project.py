@@ -1,11 +1,6 @@
 import project
 
-def calculate(expression):
-    try:
-        result = eval(expression)
-        return f"The result of {expression} is {result}"
-    except:
-        return "Invalid expression. Please try again."
+
 
 # test_project.py
 def test_calculate():
