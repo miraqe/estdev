@@ -4,18 +4,13 @@ def calculate(expression):
     try:
         result = eval(expression)
         if isinstance(result, float):
-            return f"The result of {expression} is {result:.1f}"
+            return f"The result of {expression} is {result:.2f}"
         else:
             return f"The result of {expression} is {result}"
-    except SyntaxError:
-        return "Invalid expression. Please try again."
     except ZeroDivisionError:
         return "Cannot divide by zero. Please try again."
     except:
-        return "An error occurred. Please try again."
-
-
-
+        raise SyntaxError("Invalid expression. Please try again.")
 
 
 def random_number(start, end):
