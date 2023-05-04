@@ -1,6 +1,5 @@
 import requests
 import enchant
-import json
 
 def main():
     print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
@@ -54,15 +53,23 @@ def spell_check(sentence):
 
 
 def weather(city):
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    url = f"https://www.metaweather.com/api/location/search/?query={city}"
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
-        temp = data["main"]["temp"]
-        desc = data["weather"][0]["description"]
-        return f"The temperature in {city} is {temp}°C with {desc} skies."
+        if data:
+            woeid = data[0]["woeid"] # use the first result's woeid
+            url = f"https://www.metaweather.com/api/location/{woeid}/"
+            response = requests.get(url)
+            if response.status_code == 200:
+                data = response.json()
+                temp = data["consolidated_weather"][0]["the_temp"]
+                desc = data["consolidated_weather"][0]["weather_state_name"]
+                return f"The temperature in {city} is {temp:.1f}°C with {desc} skies."
+        return "Sorry, could not get weather information for that city."
     else:
         return "Sorry, could not get weather information for that city."
+
 
 
 if __name__ == "__main__":
