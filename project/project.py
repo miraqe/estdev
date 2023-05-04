@@ -1,5 +1,5 @@
 import requests
-import enchant
+from spellchecker import SpellChecker
 from bs4 import BeautifulSoup
 
 def main():
@@ -44,16 +44,19 @@ def dictionary(word):
 
 
 def spell_check(sentence):
-    d = enchant.Dict("en_US")
+    spell = SpellChecker()
     words = sentence.split()
     checked = []
     for i, word in enumerate(words):
-        if not d.check(word):
-            suggestions = d.suggest(word)
+        if not spell.check(word):
+            suggestions = spell.candidates(word)
             checked.append(f"Error at position {i}: {word} (suggested replacements: {', '.join(suggestions)})")
         else:
             checked.append(word)
-    return " ".join(checked)
+    if checked == words:
+        return "No spelling errors found!"
+    else:
+        return " ".join(checked)
 
 
 def weather(city):
