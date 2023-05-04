@@ -44,9 +44,11 @@ def dictionary(word):
 
 
 
-def spell_check(word):
+from spellchecker import SpellChecker
+
+def spell_check(sentence):
     spell = SpellChecker()
-    words = word.split()
+    words = sentence.split()
     checked = []
     for i, word in enumerate(words):
         if not spell.check(word):
@@ -58,6 +60,7 @@ def spell_check(word):
         return "No spelling errors found!"
     else:
         return " ".join(checked)
+
 
 
 def weather(city):
