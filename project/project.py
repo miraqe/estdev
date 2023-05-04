@@ -1,6 +1,6 @@
 import requests
 import enchant
-
+import json
 
 if __name__ == '__main__':
     api_key = input("Please enter your OpenWeatherMap API key: ")
@@ -55,17 +55,16 @@ def spell_check(sentence):
     return "No errors found."
 
 
-def weather(city, api_key):
-    weather_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"
-    response = requests.get(weather_url)
+def weather(city):
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY&units=metric"
+    response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
         temp = data["main"]["temp"]
-        return f"The current temperature in {city.capitalize()} is {temp:.1f}°F."
-    elif response.status_code == 404:
-        return "City not found."
+        desc = data["weather"][0]["description"]
+        return f"The temperature in {city} is {temp}°C with {desc} skies."
     else:
-        return "Unable to retrieve weather information."
+        return "Sorry, could not get weather information for that city."
 
 
 if __name__ == "__main__":
