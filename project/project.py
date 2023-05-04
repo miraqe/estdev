@@ -1,5 +1,6 @@
 import requests
 import json
+import enchant
 
 def main():
     print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
@@ -43,21 +44,23 @@ def dictionary(word):
         return "Word not found. Please try again."
 
 
-def spell_check(sentence):
-    url = f"https://api.textgears.com/spelling?key=YOUR_API_KEY&text={sentence}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = json.loads(response.content)
-        errors = data['errors']
-        if len(errors) == 0:
-            return "No spelling errors found!"
-        else:
-            error_messages = []
-            for error in errors:
-                error_messages.append(f"Error at position {error['position']}: {error['bad']} (suggested replacements: {', '.join(error['better'])})")
-            return "\n".join(error_messages)
+
+def spell_check():
+    print("Please enter a sentence: ")
+    sentence = input().lower()
+    words = sentence.split()
+    d = enchant.Dict("en_US")
+    misspelled = []
+    for word in words:
+        if not d.check(word):
+            misspelled.append(word)
+    if not misspelled:
+        print("No spelling errors found!")
     else:
-        return "Something went wrong. Please try again later."
+        print("The following words are misspelled:")
+        for word in misspelled:
+            print(word)
+
 
 
 def weather(city):
