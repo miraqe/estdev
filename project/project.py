@@ -54,7 +54,7 @@ def spell_check(sentence):
     words = sentence.split()
     checked = []
     for i, word in enumerate(words):
-        if not spell.check(word):
+        if word not in spell:
             suggestions = spell.candidates(word)
             checked.append(f"Error at position {i}: {word} (suggested replacements: {', '.join(suggestions)})")
         else:
@@ -63,6 +63,7 @@ def spell_check(sentence):
         return "No spelling errors found!"
     else:
         return " ".join(checked)
+
 
 
 def weather(city):
