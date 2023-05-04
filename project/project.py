@@ -36,7 +36,7 @@ def calculate(expression):
 
 
 def dictionary(word):
-    url = f"https://www.dictionary.com/browse/{word}"
+    url = f"https://www.dictionary.com/browse/{word.lower()}"
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
