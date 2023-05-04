@@ -42,7 +42,7 @@ def dictionary(word):
         soup = BeautifulSoup(response.content, 'html.parser')
         try:
             definition = soup.find(class_='one-click-content css-nnyc96 e1q3nk1v1').get_text().strip()
-            return f"{word.title()}: {definition}"
+            return f"{word.title()}: {definition.capitalize()}"
         except:
             return f"Sorry, no definition found for {word}."
     else:
