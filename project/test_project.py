@@ -24,7 +24,7 @@ def test_text_manipulation():
     assert project.text_manipulation("Hello World", "unknown") == "Invalid operation. Please try again."
 
 def test_decypher():
-    assert project.decypher("uv vagreangvbany fcnpr fgngvba") == "hi internet security statement"
+    assert project.decypher("uv vagreangvbany fcnpr fgngvba", 13) == "hi internet security statement"
     assert project.decypher("d qrfp lbh xabj gung'f jul abj") == "q does you know that's why now"
     assert project.decypher("lbh zhfg bireqbfr gur vafgvghgr") == "you must overcome the obstacles"
     assert project.decypher("lbh trg gb gur bgure fvqr!") == "you get to the other side!"
