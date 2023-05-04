@@ -42,11 +42,14 @@ def dictionary(word):
         soup = BeautifulSoup(response.content, 'html.parser')
         try:
             definition = soup.find(class_='one-click-content css-nnyc96 e1q3nk1v1').get_text().strip()
+            tree_name = re.search(r"of the ([\w\s]+) family", definition).group(1)
+            definition = definition.replace(tree_name, tree_name.capitalize())
             return f"{word.title()}: {definition.capitalize()}"
         except:
             return f"Sorry, no definition found for {word}."
     else:
         return f"Sorry, could not get dictionary information for {word}."
+
 
 
 def spell_check(sentence):
