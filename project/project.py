@@ -2,30 +2,28 @@ import requests
 import enchant
 import json
 
-if __name__ == '__main__':
-    api_key = input("Please enter your OpenWeatherMap API key: ")
-
+def main():
+    print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
     while True:
-        print("Please choose an option:")
-        print("1. Dictionary")
-        print("2. Spell Check")
-        print("3. Weather")
-        print("4. Exit")
-        choice = input()
-
-        if choice == "1":
-            word = input("Please enter a word: ")
+        user_input = input().lower()
+        if user_input == "calculation":
+            expression = input("What calculation would you like to perform?\n")
+            print(calculate(expression))
+        elif user_input == "dictionary":
+            word = input("Please enter a word:\n").lower()
             print(dictionary(word))
-        elif choice == "2":
-            sentence = input("Please enter a sentence: ")
+        elif user_input == "spell check":
+            sentence = input("Please enter a sentence:\n").lower()
             print(spell_check(sentence))
-        elif choice == "3":
-            city = input("Please enter a city: ")
-            print(weather(city, api_key))
-        elif choice == "4":
+        elif user_input == "weather":
+            city = input("Please enter a city:\n").lower()
+            print(weather(city))
+        elif user_input == "exit":
+            print("Goodbye!")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, dictionary, spell check and weather.")
+
 
 
 def calculate(expression):
