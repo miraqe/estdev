@@ -1,5 +1,6 @@
 import requests
 import enchant
+from bs4 import BeautifulSoup
 
 def main():
     print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
@@ -35,38 +36,34 @@ def calculate(expression):
 
 def dictionary(word):
     d = enchant.Dict("en_US")
-    if d.check(word):
-        definition = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}").json()[0]['meanings'][0]['definitions'][0]['definition']
-        return f"{word.capitalize()}: {definition}"
+    meaning = d.meaning(word)
+    if meaning:
+        return f"{word.title()}: {meaning[0]}"
     else:
-        return "The word does not exist in the English language."
+        return f"Sorry, no definition found for {word}."
 
 
 def spell_check(sentence):
     d = enchant.Dict("en_US")
     words = sentence.split()
-    for i in range(len(words)):
-        if not d.check(words[i]):
-            suggestions = d.suggest(words[i])
-            return f"Error at position {i}: {words[i]} (suggested replacements: {', '.join(suggestions)})"
-    return "No errors found."
+    checked = []
+    for i, word in enumerate(words):
+        if not d.check(word):
+            suggestions = d.suggest(word)
+            checked.append(f"Error at position {i}: {word} (suggested replacements: {', '.join(suggestions)})")
+        else:
+            checked.append(word)
+    return " ".join(checked)
 
 
 def weather(city):
-    url = f"https://www.metaweather.com/api/location/search/?query={city}"
+    url = f"https://www.timeanddate.com/weather/{city.replace(' ', '-')}"
     response = requests.get(url)
     if response.status_code == 200:
-        data = response.json()
-        if data:
-            woeid = data[0]["woeid"] # use the first result's woeid
-            url = f"https://www.metaweather.com/api/location/{woeid}/"
-            response = requests.get(url)
-            if response.status_code == 200:
-                data = response.json()
-                temp = data["consolidated_weather"][0]["the_temp"]
-                desc = data["consolidated_weather"][0]["weather_state_name"]
-                return f"The temperature in {city} is {temp:.1f}°C with {desc} skies."
-        return "Sorry, could not get weather information for that city."
+        soup = BeautifulSoup(response.content, 'html.parser')
+        temp = soup.find(class_='h2').get_text().split()[0]
+        desc = soup.find(class_='small').get_text().strip()
+        return f"The temperature in {city.title()} is {temp}°C with {desc} skies."
     else:
         return "Sorry, could not get weather information for that city."
 
