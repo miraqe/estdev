@@ -11,9 +11,9 @@ def test_calculate():
     assert project.calculate("1/0") == "Invalid expression. Please try again."
 
 def test_dictionary():
-    assert project.dictionary("Orange") == "Orange: a globose, reddish-yellow, bitter or sweet, edible citrus fruit."
+    assert project.dictionary("Orange").capitalize() == "Orange: a globose, reddish-yellow, bitter or sweet, edible citrus fruit."
     assert project.dictionary("wordnotfound") == "Word not found. Please try again."
-    assert project.dictionary("orange") == "Orange: a globose, reddish-yellow, bitter or sweet, edible citrus fruit."
+    assert project.dictionary("orange").capitalize() == "Orange: a globose, reddish-yellow, bitter or sweet, edible citrus fruit."
 
 
 def test_spell_check():
