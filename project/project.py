@@ -14,7 +14,7 @@ def main():
             print(dictionary(word))
         elif user_input == "spell check":
             sentence = input("Please enter a sentence:\n").lower()
-            print(spell_check(word))
+            print(spell_check(sentence))
         elif user_input == "weather":
             city = input("Please enter a city:\n").lower()
             print(weather(city))
@@ -35,16 +35,18 @@ def calculate(expression):
 
 
 def dictionary(word):
-    spell = SpellChecker()
-    suggestions = spell.candidates(word)
-    if suggestions:
-        return f"{word.title()}: Did you mean '{spell.correction(word)}'?"
+    url = f"https://www.dictionaryapi.com/api/v3/references/collegiate/json/{word}?key=<your-API-key>"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        try:
+            definition = data[0]['shortdef'][0]
+            return f"{word.title()}: {definition}"
+        except:
+            return f"Sorry, no definition found for {word}."
     else:
-        return f"Sorry, no definition found for {word}."
+        return f"Sorry, could not get dictionary information for {word}."
 
-
-
-from spellchecker import SpellChecker
 
 def spell_check(sentence):
     spell = SpellChecker()
@@ -60,7 +62,6 @@ def spell_check(sentence):
         return "No spelling errors found!"
     else:
         return " ".join(checked)
-
 
 
 def weather(city):
