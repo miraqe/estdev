@@ -56,7 +56,7 @@ def spell_check(sentence):
     for i, word in enumerate(words):
         if word not in spell:
             suggestions = spell.candidates(word)
-            checked.append(f"Error at position {i}: {word} (suggested replacements: {', '.join(suggestions)})")
+            return f"Error at position {pos}: {word} (suggested replacements: {', '.join(suggestions)})."
         else:
             checked.append(word)
     if checked == words:
