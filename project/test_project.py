@@ -11,7 +11,7 @@ def test_calculate():
     assert project.calculate("1/0") == "Invalid expression. Please try again."
 
 def test_dictionary():
-    assert project.dictionary("apple") == "Apple: The usually round, red or yellow, edible fruit of a small tree, Malus sylvestris, of the rose family."
+    assert project.dictionary("Orange") == "Apple: The usually round, red or yellow, edible fruit of a small tree, Malus sylvestris, of the rose family."
     assert project.dictionary("wordnotfound") == "Word not found. Please try again."
 
 def test_spell_check():
