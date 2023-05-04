@@ -46,7 +46,7 @@ def decypher(ciphertext, key):
 
 
 def main():
-    print("Hi there! My name is AnnaBot! I can help you with the following: calculation, random number, text manipulation, decypher, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
+    print("Hi there! My name is AnnaBot! I can help you with the following: calculation, random number, text manipulation, decypher. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
     while True:
         user_input = input().lower()
         if user_input == "calculation":
@@ -72,17 +72,9 @@ def main():
                 print("Invalid input. Please enter an integer.")
                 continue
             print(decypher(ciphertext, key))
-        elif user_input == "dictionary":
-            word = input("Please enter a word:\n").lower()
-            print(dictionary(word))
-        elif user_input == "spell check":
-            sentence = input("Please enter a sentence:\n").lower()
-            print(spell_check(sentence))
-        elif user_input == "weather":
-            city = input("Please enter a city:\n").lower()
-            print(weather(city))
+
         elif user_input == "exit":
             print("Goodbye!")
             break
         else:
-            print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, random number, text manipulation, decypher, dictionary, spell check and weather.")
+            print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, random number, text manipulation, decypher.")
