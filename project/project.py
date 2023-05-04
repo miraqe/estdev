@@ -19,14 +19,13 @@ def main():
         else:
             print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, dictionary, spell check and weather.")
 
-def calculate():
-    print("What calculation would you like to perform?")
-    expression = input()
+def calculate(expression):
     try:
         result = eval(expression)
-        print(f"The answer for {expression} is {result}")
+        return f"The result of {expression} is {result}"
     except:
-        print("Invalid expression. Please try again.")
+        return "Invalid expression. Please try again."
+
 
 def dictionary():
     print("Please enter a word: ")
