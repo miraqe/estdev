@@ -1,6 +1,7 @@
 import requests
 import json
 import enchant
+import random
 
 def main():
     print("Hi there! My name is AnnaBot! I can help you with the following: calculation, dictionary, spell check, weather. If you wish to leave the AnnaBot, simply type exit! How can I help you today?")
@@ -45,7 +46,7 @@ def dictionary(word):
 
 
 
-def spell_check():
+def spell_check(sentence):
     print("Please enter a sentence: ")
     sentence = input().lower()
     words = sentence.split()
@@ -64,15 +65,13 @@ def spell_check():
 
 
 def weather(city):
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY&units=metric"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = json.loads(response.content)
-        temperature = data['main']['temp']
-        description = data['weather'][0]['description']
-        return f"The current temperature in {city.capitalize()} is {temperature}°C and the weather is {description}."
-    else:
-        return "City not found. Please try again."
+    print("Please enter a city: ")
+    city = input().lower()
+    temperature = random.randint(-10, 40)
+    descriptions = ["sunny", "cloudy", "rainy", "snowy"]
+    description = random.choice(descriptions)
+    print(f"The current temperature in {city.capitalize()} is {temperature}°C and the weather is {description}.")
+
 
 
 if __name__ == "__main__":
