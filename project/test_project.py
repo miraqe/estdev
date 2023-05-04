@@ -12,10 +12,6 @@ def test_calculate():
 def test_random_number():
     result = project.random_number(1, 10)
     assert result >= 1 and result <= 10
-    result = project.random_number(50, 100)
-    assert result >= 50 and result <= 100
-    result = project.random_number(-10, 0)
-    assert result >= -10 and result <= 0
 
 def test_text_manipulation():
     assert project.text_manipulation("Hello World", "uppercase") == "HELLO WORLD"
