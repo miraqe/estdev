@@ -86,7 +86,3 @@ def main():
             break
         else:
             print("I'm sorry, I didn't understand that. Can you please type your request again? I can help you with calculation, random number, text manipulation, decypher, dictionary, spell check and weather.")
-
-
-if __name__ == "__main__":
-    main()
