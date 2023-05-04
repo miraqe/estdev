@@ -46,7 +46,7 @@ def dictionary(word):
 
 def spell_check(word):
     spell = SpellChecker()
-    words = sentence.split()
+    words = word.split()
     checked = []
     for i, word in enumerate(words):
         if not spell.check(word):
