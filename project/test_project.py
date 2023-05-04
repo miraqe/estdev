@@ -13,6 +13,8 @@ def test_calculate():
 def test_dictionary():
     assert project.dictionary("Orange") == "Orange: a globose, reddish-yellow, bitter or sweet, edible citrus fruit."
     assert project.dictionary("wordnotfound") == "Word not found. Please try again."
+    assert project.dictionary("orange") == "Orange: a globose, reddish-yellow, bitter or sweet, edible citrus fruit."
+
 
 def test_spell_check():
     assert project.spell_check("This is a test sentence.") == "No spelling errors found!"
