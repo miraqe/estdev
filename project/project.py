@@ -3,17 +3,17 @@ import random
 def calculate(expression):
     try:
         result = eval(expression)
-        if isinstance(result, (int, float)):
-            if isinstance(result, float):
-                return f"The result of {expression} is {result:.2f}"
-            else:
-                return f"The result of {expression} is {result}"
+        if isinstance(result, float):
+            return f"The result of {expression} is {result:.1f}"
         else:
-            return "Invalid expression. Please try again."
+            return f"The result of {expression} is {result}"
+    except SyntaxError:
+        return "Invalid expression. Please try again."
     except ZeroDivisionError:
         return "Cannot divide by zero. Please try again."
     except:
         return "An error occurred. Please try again."
+
 
 
 
