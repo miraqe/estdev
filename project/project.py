@@ -14,8 +14,12 @@ def calculate(expr):
         return 'Invalid expression. Please try again.'
 
 
-def random_number(start, end):
-    return f"Your random number between {start} and {end} is: {random.randint(start, end)}"
+def test_random_number():
+    result = random_number(1, 10)
+    assert result.startswith('Your random number between 1 and 10 is: ')
+    num = int(result.split()[-1])
+    assert num >= 1 and num <= 10
+
 
 def text_manipulation(text, operation):
     if operation == "uppercase":
