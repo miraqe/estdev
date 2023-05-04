@@ -26,11 +26,18 @@ def multiply_numbers(a, b):
     else:
         return a * b
 
+
 def reverse_string(string):
     """
     This function takes a string as input and returns the reversed version of the string,
     with each word reversed but maintaining their position in the string.
     """
+    # Split the string into a list of words
     words = string.split()
-    reversed_words = [word[::-1] for word in words]
-    return ' '.join(reversed_words)[::-1]
+    # Reverse the order of the words
+    reversed_words = words[::-1]
+    # Join the reversed words back into a string
+    reversed_string = ' '.join(reversed_words)
+    # Return the reversed string
+    return reversed_string
+
