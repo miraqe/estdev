@@ -2,7 +2,7 @@ import random
 
 def calculate(expression):
     try:
-        result = eval(expression)
+        result = eval(expression.replace("/","//"))
         return f"The result of {expression} is {result}"
     except:
         return "Invalid expression. Please try again."

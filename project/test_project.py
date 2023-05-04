@@ -3,7 +3,7 @@ import project
 def test_calculate():
     assert project.calculate("2+2") == "The result of 2+2 is 4"
     assert project.calculate("5-3") == "The result of 5-3 is 2"
-    assert project.calculate("10/2") == "The result of 10/2 is 5.0"
+    assert project.calculate("10/2") == "The result of 10/2 is 5"
     assert project.calculate("4*6") == "The result of 4*6 is 24"
     assert project.calculate("2++2") == "Invalid expression. Please try again."
     assert project.calculate("2/0") == "Invalid expression. Please try again."
