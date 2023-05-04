@@ -20,7 +20,7 @@ def calculate(expression):
 
 
 
-def random_number(start, end):
+def random_number_generator(start, end):
     return f"Your random number between {start} and {end} is: {random.randint(start, end)}"
 
 def text_manipulation(text, operation):
