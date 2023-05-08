@@ -41,3 +41,15 @@ def reverse_string(string):
     # Return the reversed string
     return reversed_string
 
+
+def main():
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+    print(f"Sum of {num1} and {num2}: {add_numbers(num1, num2)}")
+    print(f"Product of {num1} and {num2}: {multiply_numbers(num1, num2)}")
+    string = input("Enter a string: ")
+    print(f"Reversed string: {reverse_string(string)}")
+
+
+if __name__ == '__main__':
+    main()
